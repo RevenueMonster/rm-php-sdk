@@ -3,19 +3,26 @@
 namespace RM\SDK;
 
 use Httpful\Request;
+use Datetime;
+use DateInterval;
+use Exception;
 
 class RevenueMonster 
 {
-    private static $oauthDomain = 'oauth.revenuemonster.my';
-    private static $apiDomain = 'open.revenuemonster.my';
+    private static $domains = [
+        'oauth' => 'oauth.revenuemonster.my',
+        'api' => 'open.revenuemonster.my',
+    ];
 
-    private $clientId = '5499912462549392881';
-    private $clientSecret = 'pwMapjZzHljBALIGHxfGGXmiGLxjWbkT';
+    private $clientId = '';
+    private $clientSecret = '';
     private $accessToken = '';
     private $privateKey = '';
     private $publicKey = '';
-    private $version = 'stable';
+    // private $version = 'stable';
     private $isSandbox = true;
+    private $refreshTime;
+    private $tokenPath = '/storage/access_token.json';
 
     private $modules = [
         'merchant' => 'RM\SDK\Modules\MerchantModule',
@@ -34,6 +41,11 @@ class RevenueMonster
             $this->{$property} = $argument;
         }
 
+        $this->oauth();
+    }
+
+    private function oauth()
+    {
         $uri = $this->getAPIUrl('v1', '/token', 'oauth');
         $hash = base64_encode($this->clientId.':'.$this->clientSecret);
 
@@ -45,18 +57,19 @@ class RevenueMonster
             ->addHeader('Authorization', "Basic $hash")
             ->send();
 
+        $filepath = __DIR__.'/storage/access_token.json';
         $body = $response->body;
-        $accessToken = $body->accessToken;
-        $this->accessToken = $accessToken;
-        // file_put_contents('access_token', json_encode($body));
-    }
+        $this->accessToken = $body->accessToken;
+        file_put_contents($filepath, json_encode($body));
+        $expiresIn = $body->expiresIn - 1000;
+        $this->refreshTime = (new Datetime)->add(new DateInterval('PT'.$expiresIn.'S'));
+    } 
 
     public function getDomain(string $usage)
     {
-        $domain = RevenueMonster::$apiDomain;
-        switch ($usage) {
-        case 'oauth':
-            $domain = RevenueMonster::$oauthDomain;
+        $domain = RevenueMonster::$domains['api'];
+        if (array_key_exists($usage, RevenueMonster::$domains)) {
+            $domain = RevenueMonster::$domains[$usage];
         }
         return $domain;
     }
@@ -71,22 +84,18 @@ class RevenueMonster
         return "https://$uri";
     }
 
-    private function accessTokenExpires()
+    private function refreshTokenIfNecessary()
     {
-
-    }
-
-    private function renewAccessToken()
-    {
-        $accessToken = '';
-        $this->accessToken = $accessToken;
+        var_dump(new Datetime, $this->refreshTime);
+        if (new Datetime > $this->refreshTime) {
+            echo '<p>refreshIT</p>';
+            $this->oauth();
+        }
     }
 
     public function getAccessToken()
     {
-        if ($this->accessTokenExpires()) {
-            $this->renewAccessToken();
-        }
+        $this->refreshTokenIfNecessary();
         return $this->accessToken;
     }
 
