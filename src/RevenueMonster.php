@@ -68,7 +68,6 @@ class RevenueMonster
         if ($this->isSandbox) {
             $uri = "sb-$uri";
         }
-        echo "<p>https://$uri</p>";
         return "https://$uri";
     }
 
