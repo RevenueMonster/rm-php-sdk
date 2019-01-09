@@ -5,7 +5,7 @@ composer require RevenueMonster/RM-API-SDK-PHP
 ```
 
 ```php
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use RM\SDK\RevenueMonster;
 
