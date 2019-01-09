@@ -11,10 +11,13 @@
   "require": {
     "php": ">=5.6",
     "guzzlehttp/guzzle": "~6.0",
-    "nategood/httpful": "*"
+    "nategood/httpful": "*",
+    "tightenco/collect": "^5.7"
   },
   "autoload": {
-    "files": [],
+    "files": [
+      "src/helpers.php"
+    ],
     "psr-4": {
       "RM\\SDK\\": "src"
     }

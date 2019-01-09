@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
-require __DIR__.'/src/helper/util.php';
+require __DIR__.'/../vendor/autoload.php';
+// require __DIR__.'/src/helper/util.php';
 
 use RM\SDK\RevenueMonster;
 

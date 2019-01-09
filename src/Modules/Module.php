@@ -14,7 +14,12 @@ class Module
         $this->rm = $rm;
     }
 
-    protected function generateSignature($method, $url, $nonceStr, $timestamp, $payload = [])
+    public function getAPIUrl(string $version = '1.0', string $url, string $usage = 'api')
+    {
+        return $this->rm->getAPIUrl($version, $url, $usage);
+    }
+
+    public function generateSignature($method, $url, $nonceStr, $timestamp, $payload = [])
     {
         $res = openssl_pkey_get_private($this->rm->getPrivateKey());
         $signType = 'sha256';
@@ -37,11 +42,7 @@ class Module
         openssl_sign(join("&", $arr), $signature, $res, OPENSSL_ALGO_SHA256);
         // free the key from memory
         openssl_free_key($res);
-        // echo '<p>Before SIGNATURE -------------------------------</p>';
-        // var_dump(join("&", $arr));
-        // echo '<p>After SIGNATURE --------------------------------</p>';
         $signature = base64_encode($signature);
-        // var_dump($signature);
         return $signature;
     }
 
@@ -60,8 +61,8 @@ class Module
 
         $request = $request->sendsJson()
             ->expectsJson()
-            ->addHeader('Authorization', "Bearer $accessToken")    // Or use the addHeader method
             ->addHeaders([
+                'Authorization' => "Bearer $accessToken",
                 'X-Signature' => "sha256 $signature",
                 'X-Nonce-Str' => $nonceStr,
                 'X-Timestamp' => $timestamp,

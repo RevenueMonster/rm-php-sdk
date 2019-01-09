@@ -8,13 +8,13 @@ class MerchantModule extends Module
 {
     public function profile()
     {
-        $url = 'https://sb-open.revenuemonster.my/v3/merchant';
-        return $this->callApi('get', $url)->send()->body->item;
+        $uri = $this->getAPIUrl('v3', '/merchant');
+        return $this->callApi('get', $uri)->send()->body->item;
     }
 
     public function subscriptions() 
     {
-        $url = 'https://sb-open.revenuemonster.my/v3/merchant/subscriptions';
-        return $this->callApi('get', $url)->send()->body->item;
+        $uri = $this->getAPIUrl('v3', '/merchant/subscriptions');
+        return collect($this->callApi('get', $uri)->send()->body->item);
     }
 }
