@@ -39,6 +39,8 @@ composer require RevenueMonster/RM-API-SDK-PHP
 - [ ] Send Notification (Store)
 - [ ] Send Notification (User)
 
+### Examples
+
 ```php
 require __DIR__.'/vendor/autoload.php';
 
