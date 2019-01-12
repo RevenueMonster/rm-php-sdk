@@ -1,7 +1,7 @@
 # RM-API-SDK-PHP
 
 ```bash
-composer require RevenueMonster/RM-API-SDK-PHP
+composer require revenuemonster/sdk
 ```
 
 ### Covered Functions
