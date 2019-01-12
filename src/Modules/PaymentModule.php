@@ -34,24 +34,48 @@ class PaymentModule extends Module
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }
 
+    /**
+     * Reverse payment
+     * @param array
+     * @return stdClass
+     * @throws ApiException
+     */
     public function reverse(array $args = [])
     {
         $uri = $this->getOpenApiUrl('v3', '/payment/reverse');
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }
 
+    /**
+     * List transactions
+     * @param string $transactionId 
+     * @return Tightenco\Collect\Support\Collection
+     * @throws ApiException
+     */
     public function paginate(int $limit = 100)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transactions?limit=$limit");
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
 
+    /**
+     * Find transaction by transaction id
+     * @param string $transactionId 
+     * @return stdClass
+     * @throws ApiException
+     */
     public function find(string $transactionId)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/$transactionId");
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
 
+    /**
+     * Find transaction by order id
+     * @param string $orderId 
+     * @return stdClass
+     * @throws ApiException
+     */
     public function findByOrderId(string $orderId)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/order/$orderId");
