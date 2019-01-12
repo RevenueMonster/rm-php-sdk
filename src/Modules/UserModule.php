@@ -1,6 +1,6 @@
 <?php
 
-namespace RM\SDK\Modules;
+namespace RevenueMonster\SDK\Modules;
 
 class UserModule extends Module 
 {

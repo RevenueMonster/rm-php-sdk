@@ -44,8 +44,8 @@ composer require RevenueMonster/RM-API-SDK-PHP
 ```php
 require __DIR__.'/vendor/autoload.php';
 
-use RM\SDK\RevenueMonster;
-use RM\SDK\Exceptions\ApiException;
+use RevenueMonster\SDK\RevenueMonster;
+use RevenueMonster\SDK\Exceptions\ApiException;
 
 $rm = new RevenueMonster([
   'clientId' => '5499912462549392881',

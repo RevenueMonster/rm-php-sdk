@@ -1,6 +1,6 @@
 <?php
 
-namespace RM\SDK\Exceptions;
+namespace RevenueMonster\SDK\Exceptions;
 
 use Httpful\Response;
 use Exception;

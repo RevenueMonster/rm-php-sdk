@@ -1,6 +1,6 @@
 <?php
 
-namespace RM\SDK;
+namespace RevenueMonster\SDK;
 
 use Httpful\Request;
 use Datetime;

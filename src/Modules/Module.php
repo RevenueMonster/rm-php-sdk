@@ -1,11 +1,11 @@
 <?php
 
-namespace RM\SDK\Modules;
+namespace RevenueMonster\SDK\Modules;
 
 use Httpful\Request;
 use Httpful\Response;
-use RM\SDK\RevenueMonster;
-use RM\SDK\Exceptions\ApiException;
+use RevenueMonster\SDK\RevenueMonster;
+use RevenueMonster\SDK\Exceptions\ApiException;
 
 class Module
 {
@@ -52,7 +52,7 @@ class Module
     {
         $accessToken = $this->rm->getAccessToken();
         $method = strtolower($method);
-        
+
         switch ($method) {
         case 'post':
             $request = Request::post($url, $payload);

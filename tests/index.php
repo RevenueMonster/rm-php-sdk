@@ -3,8 +3,8 @@
 require __DIR__.'/../vendor/autoload.php';
 // require __DIR__.'/src/helper/util.php';
 
-use RM\SDK\RevenueMonster;
-use RM\SDK\Exceptions\ApiException;
+use RevenueMonster\SDK\RevenueMonster;
+use RevenueMonster\SDK\Exceptions\ApiException;
 
 echo '<div style="width: 100%; word-break: break-all;">';
 echo round(microtime(true) * 1000).'<br/>';
