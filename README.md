@@ -4,6 +4,41 @@
 composer require RevenueMonster/RM-API-SDK-PHP
 ```
 
+### Covered Functions
+
+- [x] Client Credentials (Authentication)
+- [x] Refresh Token (Authentication)
+- [x] Get Merchant Profile
+- [x] Get Merchant Subscriptions
+- [x] Get Stores
+- [x] Get Stores By ID
+- [x] Create Store
+- [x] Update Store
+- [x] Delete Store
+- [x] Get User Profile
+- [x] Payment (Transaction QR) - Create Transaction QRCode/URL
+- [x] Payment (Transaction QR) - Get Transaction QRCode/URL
+- [x] Payment (Transaction QR) - Get Transaction QRCode/URL By Code
+- [x] Payment (Transaction QR) - Get Transactions By Code
+- [x] Payment (Quick Pay) - Payment
+- [x] Payment (Quick Pay) - Refund
+- [x] Payment (Quick Pay) - Reverse
+- [x] Payment (Quick Pay) - Get All Payment Transactions
+- [x] Payment (Quick Pay) - Get All Payment Transaction By ID
+- [ ] Payment (Quick Pay) - Daily Settlement Report
+- [ ] Give Loyalty Point
+- [ ] Get Loyalty Members
+- [ ] Get Loyalty Member
+- [ ] Get Loyalty Member Point History
+- [ ] Issue Voucher
+- [ ] Void Voucher
+- [ ] Get Voucher By Code
+- [ ] Get Voucher Batches
+- [ ] Get Voucher Batch By Key
+- [ ] Send Notification (Merchant)
+- [ ] Send Notification (Store)
+- [ ] Send Notification (User)
+
 ```php
 require __DIR__.'/vendor/autoload.php';
 
