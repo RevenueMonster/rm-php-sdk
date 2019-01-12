@@ -47,6 +47,7 @@ require __DIR__.'/vendor/autoload.php';
 use RevenueMonster\SDK\RevenueMonster;
 use RevenueMonster\SDK\Exceptions\ApiException;
 
+// Initialise sdk instance
 $rm = new RevenueMonster([
   'clientId' => '5499912462549392881',
   'clientSecret' => 'pwMapjZzHljBALIGHxfGGXmiGLxjWbkT',
@@ -54,6 +55,34 @@ $rm = new RevenueMonster([
   'sandbox' => false,
 ]);
 
+// Get merchant profile
+try {
+  $response = $rm->merchant->profile();
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Get merchant subscriptions
+try {
+  $response = $rm->merchant->subscriptions();
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Get merchant's stores
+try {
+  $response = $rm->store->paginate(10);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// create QR pay
 try {
   $response = $rm->payment->qrPay([
     "currencyType" => "MYR",

@@ -16,12 +16,16 @@ $rm = new RevenueMonster([
   'sandbox' => false,
 ]);
 
+
 try {
   echo '<p>';
   var_dump($rm->merchant->profile());
   echo '</p>';
   echo '<p>';
   var_dump($rm->merchant->subscriptions());
+  echo '</p>';
+  echo '<p>';
+  var_dump($rm->store->paginate(1));
   echo '</p>';
   $response = $rm->payment->qrPay([
     "currencyType" => "MYR",
