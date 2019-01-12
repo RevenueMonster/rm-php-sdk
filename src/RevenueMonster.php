@@ -14,19 +14,34 @@ class RevenueMonster
         'api' => 'open.revenuemonster.my',
     ];
 
+    // RevenueMonster clientId
     private $clientId = '';
+
+    // RevenueMonster clientSecret
     private $clientSecret = '';
+
+    // access token for api call
     private $accessToken = '';
+
+    // private key for signature generation
     private $privateKey = '';
+    
+    // public key for signature verification
     private $publicKey = '';
-    // private $version = 'stable';
+
+    // identifier for sandbox or production
     private $isSandbox = true;
+
+    // access token refresh time
     private $refreshTime;
+
     private $tokenPath = '/storage/access_token.json';
 
     private $modules = [
-        'merchant' => 'RM\SDK\Modules\MerchantModule',
-        'payment' => 'RM\SDK\Modules\PaymentModule',
+        'merchant' => Modules\MerchantModule::class,
+        'store' => Modules\StoreModule::class,
+        'user', Modules\UserModule::class,
+        'payment' => Modules\PaymentModule::class,
     ];
 
     public function __construct(array $arguments = []) 
@@ -46,7 +61,7 @@ class RevenueMonster
 
     private function oauth()
     {
-        $uri = $this->getAPIUrl('v1', '/token', 'oauth');
+        $uri = $this->getOpenApiUrl('v1', '/token', 'oauth');
         $hash = base64_encode($this->clientId.':'.$this->clientSecret);
 
         $response = Request::post($uri, [
@@ -74,7 +89,7 @@ class RevenueMonster
         return $domain;
     }
 
-    public function getAPIUrl(string $version = 'v1', string $url, string $usage = 'api')
+    public function getOpenApiUrl(string $version = 'v1', string $url, string $usage = 'api')
     {
         $url = trim($url, '/');
         $uri = "{$this->getDomain($usage)}/$version/$url";
@@ -86,9 +101,7 @@ class RevenueMonster
 
     private function refreshTokenIfNecessary()
     {
-        var_dump(new Datetime, $this->refreshTime);
         if (new Datetime > $this->refreshTime) {
-            echo '<p>refreshIT</p>';
             $this->oauth();
         }
     }

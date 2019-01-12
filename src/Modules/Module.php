@@ -2,8 +2,10 @@
 
 namespace RM\SDK\Modules;
 
-use RM\SDK\RevenueMonster;
 use Httpful\Request;
+use Httpful\Response;
+use RM\SDK\RevenueMonster;
+use RM\SDK\Exceptions\ApiException;
 
 class Module
 {
@@ -14,9 +16,9 @@ class Module
         $this->rm = $rm;
     }
 
-    public function getAPIUrl(string $version = '1.0', string $url, string $usage = 'api')
+    public function getOpenApiUrl(string $version = '1.0', string $url, string $usage = 'api')
     {
-        return $this->rm->getAPIUrl($version, $url, $usage);
+        return $this->rm->getOpenApiUrl($version, $url, $usage);
     }
 
     public function generateSignature($method, $url, $nonceStr, $timestamp, $payload = [])
@@ -50,9 +52,20 @@ class Module
     {
         $accessToken = $this->rm->getAccessToken();
         $method = strtolower($method);
-        $request = Request::get($url);
-        if ($method == 'post') {
+        
+        switch ($method) {
+        case 'post':
             $request = Request::post($url, $payload);
+            break;
+        case 'patch':
+            $request = Request::patch($patch, $payload);
+            break;
+        case 'delete':
+            $request = Request::delete($url);
+            break;
+        default:
+            $request = Request::get($url);
+            break;
         }
 
         $nonceStr = random_str(32);
@@ -79,6 +92,29 @@ class Module
     protected function post(string $url, $payload = null)
     {
         return $this->callApi('post', $url, $payload);
+    }
+
+    /**
+     * magic function to return response
+     * 
+     * @return stdClass|Tightenco\Collect\Support\Collection
+     *
+     * @throws ApiException
+     */
+    protected function mapResponse(Response $response)
+    {
+        $body = $response->body;
+
+        // check the response contains error payload
+        if (property_exists($body, 'error')) {
+            throw new ApiException($response->code, $body->error->code, $body->error->message);
+        } else if (property_exists($body, 'item')) {
+            return $body->item;
+        } else if (property_exists($body, 'items')) {
+            return collect($body->items);
+        }
+
+        throw new ApiException($response->code, ApiException::$UNKNOWN_ERROR, 'unexpected error');
     }
 
 

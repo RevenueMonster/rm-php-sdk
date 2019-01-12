@@ -4,6 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 // require __DIR__.'/src/helper/util.php';
 
 use RM\SDK\RevenueMonster;
+use RM\SDK\Exceptions\ApiException;
 
 echo '<div style="width: 100%; word-break: break-all;">';
 echo round(microtime(true) * 1000).'<br/>';
@@ -61,8 +62,10 @@ try {
   echo '<p>';
   var_dump($response);
   echo '</p>';
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
 } catch(Exception $e) {
-  var_dump($e);
+  echo $e->getMessage();
 }
 
 // $rm->store->find($id); // $store->save();

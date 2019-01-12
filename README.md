@@ -8,6 +8,7 @@ composer require RevenueMonster/RM-API-SDK-PHP
 require __DIR__.'/vendor/autoload.php';
 
 use RM\SDK\RevenueMonster;
+use RM\SDK\Exceptions\ApiException;
 
 $rm = new RevenueMonster([
   'clientId' => '5499912462549392881',
@@ -33,8 +34,10 @@ try {
     "storeId" => "10946114768247530",
     "type" => "DYNAMIC",
   ]);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
 } catch(Exception $e) {
-    echo $e->getMessage();
+  echo $e->getMessage();
 }
 
 ```
