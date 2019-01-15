@@ -29,8 +29,8 @@ class Module
         $arr = array();
         if (is_array($payload) && !empty($payload)) {
             array_ksort($payload);
-            // JSON_UNESCAPED_UNICODE(256) + JSON_UNESCAPED_SLASHES(64) 
-            $data = base64_encode(json_encode($payload, 320));
+            $optionsVal = JSON_UNESCAPED_SLASHES + JSON_UNESCAPED_UNICODE;
+            $data = base64_encode(json_encode($payload, $optionsVal));
             array_push($arr, "data=$data");
         }
 
