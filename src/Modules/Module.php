@@ -29,7 +29,7 @@ class Module
         $arr = array();
         if (is_array($payload) && !empty($payload)) {
             array_ksort($payload);
-            $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES));
+            $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
             array_push($arr, "data=$data");
         }
 

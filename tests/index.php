@@ -46,6 +46,26 @@ try {
   echo '<p>';
   var_dump($response);
   echo '</p>';
+  echo '<p>QR PAY with unicode</p>';
+  $response = $rm->payment->qrPay([
+    "currencyType" => "MYR",
+    "amount" => 100,
+    "expiry" => [
+      "type" => "PERMANENT",
+    ],
+    "isPreFillAmount" => true,
+    "method" => ["WECHATPAY"],
+    "order" => [
+      "title" => "服务费",
+      "detail" => "test",
+    ],
+    "redirectUrl" => "https://www.baidu.com",
+    "storeId" => "10946114768247530",
+    "type" => "DYNAMIC",
+  ]);
+  echo '<p>';
+  var_dump($response);
+  echo '</p>';
   $response = $rm->payment->qrCode('732eb1e935983d274695f250dee9eb75');
   echo '<p>';
   var_dump($response);
