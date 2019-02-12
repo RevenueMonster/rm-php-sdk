@@ -11,7 +11,7 @@ echo round(microtime(true) * 1000).'<br/>';
 $rm = new RevenueMonster([
   'clientId' => '1548837233666152574',
   'clientSecret' => 'VKAnRLBESgXwNgwSDbGNsvHzpxhNcvRu',
-  'privateKey' => file_get_contents(__DIR__.'/private_key.pem'), 
+  'privateKey' => file_get_contents(__DIR__.'/test.pem'), 
   'version' => 'stable',
   'isSandbox' => false,
 ]);
