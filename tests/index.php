@@ -9,11 +9,11 @@ use RevenueMonster\SDK\Exceptions\ApiException;
 echo '<div style="width: 100%; word-break: break-all;">';
 echo round(microtime(true) * 1000).'<br/>';
 $rm = new RevenueMonster([
-  'clientId' => '5499912462549392881',
-  'clientSecret' => 'pwMapjZzHljBALIGHxfGGXmiGLxjWbkT',
+  'clientId' => '1548837233666152574',
+  'clientSecret' => 'VKAnRLBESgXwNgwSDbGNsvHzpxhNcvRu',
   'privateKey' => file_get_contents(__DIR__.'/private_key.pem'), 
   'version' => 'stable',
-  'sandbox' => false,
+  'isSandbox' => false,
 ]);
 
 

@@ -52,7 +52,7 @@ $rm = new RevenueMonster([
   'clientId' => '5499912462549392881',
   'clientSecret' => 'pwMapjZzHljBALIGHxfGGXmiGLxjWbkT',
   'privateKey' => file_get_contents(__DIR__.'/private_key.pem'),
-  'sandbox' => false,
+  'isSandbox' => false,
 ]);
 
 // Get merchant profile
