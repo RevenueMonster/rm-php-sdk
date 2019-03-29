@@ -2,6 +2,8 @@
 
 namespace RevenueMonster\SDK\Modules;
 
+use RevenueMonster\SDK\Request\WebPayment;
+
 class PaymentModule extends Module
 {
     public function qrPay(array $args = [])
@@ -80,5 +82,21 @@ class PaymentModule extends Module
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/order/$orderId");
         return $this->mapResponse($this->callApi('get', $uri)->send());
+    }
+
+    /**
+     * Find transaction by order id
+     * @param string $orderId 
+     * @return stdClass
+     * @throws ApiException
+     */
+    public function createWebPayment($args)
+    {
+        if ($args instanceof WebPayment) {
+            $args = $args->jsonSerialize();
+        }
+
+        $uri = $this->getOpenApiUrl('v3', '/payment/online');
+        return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }
 }

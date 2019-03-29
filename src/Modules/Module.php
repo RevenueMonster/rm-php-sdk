@@ -27,9 +27,12 @@ class Module
         $signType = 'sha256';
 
         $arr = array();
-        if (is_array($payload) && !empty($payload)) {
-            array_ksort($payload);
-            $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+        if (is_array($payload)) {
+            $data = '';
+            if (!empty($payload)) {
+                array_ksort($payload);
+                $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            }
             array_push($arr, "data=$data");
         }
 
@@ -44,6 +47,7 @@ class Module
         openssl_sign(join("&", $arr), $signature, $res, OPENSSL_ALGO_SHA256);
         // free the key from memory
         openssl_free_key($res);
+        var_dump(join("&", $arr));
         $signature = base64_encode($signature);
         return $signature;
     }
@@ -55,6 +59,7 @@ class Module
 
         switch ($method) {
         case 'post':
+        echo 'POST HERE <br/>';
             $request = Request::post($url, $payload);
             break;
         case 'patch':
@@ -71,15 +76,19 @@ class Module
         $nonceStr = random_str(32);
         $timestamp = time();
         $signature = $this->generateSignature($method, $url, $nonceStr, $timestamp, $payload);
+        $header = [
+            'Authorization' => "Bearer $accessToken",
+            'X-Signature' => "sha256 $signature",
+            'X-Nonce-Str' => $nonceStr,
+            'X-Timestamp' => $timestamp,
+        ];
+
+        echo '<p>'.$url.'</p>';
+        var_dump($header);
 
         $request = $request->sendsJson()
             ->expectsJson()
-            ->addHeaders([
-                'Authorization' => "Bearer $accessToken",
-                'X-Signature' => "sha256 $signature",
-                'X-Nonce-Str' => $nonceStr,
-                'X-Timestamp' => $timestamp,
-            ]);
+            ->addHeaders($header);
 
         return $request;
     }
@@ -104,6 +113,7 @@ class Module
     protected function mapResponse(Response $response)
     {
         $body = $response->body;
+        var_dump($body);
 
         // check the response contains error payload
         if (property_exists($body, 'error')) {

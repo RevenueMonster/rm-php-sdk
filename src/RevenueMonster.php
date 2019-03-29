@@ -72,10 +72,10 @@ class RevenueMonster
             ->addHeader('Authorization', "Basic $hash")
             ->send();
 
-        $filepath = __DIR__.'/storage/access_token.json';
+        // $filepath = __DIR__.'/storage/access_token.json';
         $body = $response->body;
         $this->accessToken = $body->accessToken;
-        file_put_contents($filepath, json_encode($body));
+        // file_put_contents($filepath, json_encode($body));
         $expiresIn = $body->expiresIn - 1000;
         $this->refreshTime = (new Datetime)->add(new DateInterval('PT'.$expiresIn.'S'));
     } 
@@ -120,7 +120,7 @@ class RevenueMonster
     public function __get($name)
     {
         if (!array_key_exists($name, $this->modules)) {
-            throw new Exception();
+            throw new Exception("invalid property name : $name");
         }
 
         $obj = $this->modules[$name];

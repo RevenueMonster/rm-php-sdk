@@ -11,7 +11,8 @@
   "require": {
     "php": ">=7.1.3",
     "nategood/httpful": "*",
-    "tightenco/collect": "^5.7"
+    "tightenco/collect": "^5.7",
+    "rakit/validation": "^1.1"
   },
   "autoload": {
     "files": [

@@ -26,6 +26,7 @@ composer require revenuemonster/sdk
 - [x] Payment (Quick Pay) - Get All Payment Transactions
 - [x] Payment (Quick Pay) - Get All Payment Transaction By ID
 - [ ] Payment (Quick Pay) - Daily Settlement Report
+- [x] Payment (Checkout) - Create Web/Mobile Payment
 - [ ] Give Loyalty Point
 - [ ] Get Loyalty Members
 - [ ] Get Loyalty Member
@@ -46,6 +47,8 @@ require __DIR__.'/vendor/autoload.php';
 
 use RevenueMonster\SDK\RevenueMonster;
 use RevenueMonster\SDK\Exceptions\ApiException;
+use RevenueMonster\SDK\Exceptions\ValidationException;
+use RevenueMonster\SDK\Request\WebPayment;
 
 // Initialise sdk instance
 $rm = new RevenueMonster([
@@ -106,4 +109,27 @@ try {
   echo $e->getMessage();
 }
 
+
+try {
+  $wp = new WebPayment;
+  $wp->order->id = '10020';
+  $wp->order->title = 'Testing Web Payment';
+  $wp->order->currencyType = 'MYR';
+  $wp->order->amount = 100;
+  $wp->order->detail = '';
+  $wp->order->additionalData = '';
+  $wp->storeId = "1553067342153519097";
+  $wp->redirectUrl = 'https://google.com';
+  $wp->notifyUrl = 'https://google.com';
+
+  $response = $rm->payment->createWebPayment($wp);
+  echo $response->checkoutId; // Checkout ID
+  echo $response->url; // Payment gateway url
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(ValidationException $e) {
+  var_dump($e->getMessage());
+}  catch(Exception $e) {
+  echo $e->getMessage();
+}
 ```
