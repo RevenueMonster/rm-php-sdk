@@ -72,15 +72,13 @@ class RevenueMonster
             ->addHeader('Authorization', "Basic $hash")
             ->send();
 
-        // $filepath = __DIR__.'/storage/access_token.json';
         $body = $response->body;
         $this->accessToken = $body->accessToken;
-        // file_put_contents($filepath, json_encode($body));
         $expiresIn = $body->expiresIn - 1000;
         $this->refreshTime = (new Datetime)->add(new DateInterval('PT'.$expiresIn.'S'));
     } 
 
-    public function getDomain(string $usage)
+    public function getDomain($usage = '')
     {
         $domain = RevenueMonster::$domains['api'];
         if (array_key_exists($usage, RevenueMonster::$domains)) {
@@ -89,7 +87,7 @@ class RevenueMonster
         return $domain;
     }
 
-    public function getOpenApiUrl(string $version = 'v1', string $url, string $usage = 'api')
+    public function getOpenApiUrl($version = 'v1', $url = '', $usage = 'api')
     {
         $url = trim($url, '/');
         $uri = "{$this->getDomain($usage)}/$version/$url";

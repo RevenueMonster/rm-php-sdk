@@ -6,13 +6,13 @@ use RevenueMonster\SDK\Request\WebPayment;
 
 class PaymentModule extends Module
 {
-    public function qrPay(array $args = [])
+    public function qrPay($args = [])
     {
         $uri = $this->getOpenApiUrl('v3', '/payment/transaction/qrcode');
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }
 
-    public function qrCode(string $qrCode)
+    public function qrCode($qrCode)
     {
         if ($args instanceof WebPayment) {
             $args = $args->jsonSerialize();
@@ -22,7 +22,7 @@ class PaymentModule extends Module
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
     
-    public function transactionsByQrCode(string $qrCode, int $limit = 10)
+    public function transactionsByQrCode($qrCode = '', $limit = 10)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/qrcode/{$qrCode}/transactions?limit=$limit");
         return $this->mapResponse($this->callApi('get', $uri)->send());
@@ -62,7 +62,7 @@ class PaymentModule extends Module
      * @return Tightenco\Collect\Support\Collection
      * @throws ApiException
      */
-    public function paginate(int $limit = 100)
+    public function paginate($limit = 100)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transactions?limit=$limit");
         return $this->mapResponse($this->callApi('get', $uri)->send());
@@ -74,7 +74,7 @@ class PaymentModule extends Module
      * @return stdClass
      * @throws ApiException
      */
-    public function find(string $transactionId)
+    public function find($transactionId)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/$transactionId");
         return $this->mapResponse($this->callApi('get', $uri)->send());
@@ -86,7 +86,7 @@ class PaymentModule extends Module
      * @return stdClass
      * @throws ApiException
      */
-    public function findByOrderId(string $orderId)
+    public function findByOrderId($orderId)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/order/$orderId");
         return $this->mapResponse($this->callApi('get', $uri)->send());

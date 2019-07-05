@@ -16,7 +16,7 @@ class Module
         $this->rm = $rm;
     }
 
-    public function getOpenApiUrl(string $version = '1.0', string $url, string $usage = 'api')
+    public function getOpenApiUrl($version = '1.0', $url, $usage = 'api')
     {
         return $this->rm->getOpenApiUrl($version, $url, $usage);
     }
@@ -51,7 +51,7 @@ class Module
         return $signature;
     }
 
-    protected function callApi(string $method, $url, $payload = null)
+    protected function callApi($method, $url, $payload = null)
     {
         $accessToken = $this->rm->getAccessToken();
         $method = strtolower($method);

@@ -11,7 +11,7 @@ class ApiException extends Exception
     
     protected $errorCode = '';
 
-    public function __construct(int $statusCode = 500, string $errorCode, string $message = '', Exception $previous = null)
+    public function __construct($statusCode = 500, $errorCode, $message = '', Exception $previous = null)
     {
         parent::__construct($message, $statusCode, $previous);
         $this->errorCode = $errorCode;

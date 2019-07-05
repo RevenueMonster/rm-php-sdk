@@ -51,54 +51,54 @@ try {
   // var_dump($response);
   // echo '</p>';
   // echo '<p>QR PAY with unicode</p>';
-  $qrPay = new QRPay();
-  $qrPay->currencyType = 'MYR';
-  $qrPay->amount = 100;
-  $qrPay->isPreFillAmount = true;
-  $qrPay->method = [];
-  $qrPay->redirectUrl = 'https://www.baidu.com';
-  $qrPay->storeId = '1553067342153519097';
-  $qrPay->type = 'DYNAMIC';
-  $response = $rm->payment->qrPay($qrPay);
+  // $qrPay = new QRPay();
+  // $qrPay->currencyType = 'MYR';
+  // $qrPay->amount = 100;
+  // $qrPay->isPreFillAmount = true;
+  // $qrPay->method = [];
+  // $qrPay->redirectUrl = 'https://www.baidu.com';
+  // $qrPay->storeId = '1553067342153519097';
+  // $qrPay->type = 'DYNAMIC';
+  // $response = $rm->payment->qrPay($qrPay);
+  // var_dump($response);
+  $response = $rm->payment->qrPay([
+    "currencyType" => "MYR",
+    "amount" => 100,
+    "expiry" => [
+      "type" => "PERMANENT",
+    ],
+    "isPreFillAmount" => true,
+    "method" => ["WECHATPAY"],
+    "order" => [
+      "title" => "服务费",
+      "detail" => "test",
+    ],
+    "redirectUrl" => "https://www.baidu.com",
+    "storeId" => "10946114768247530",
+    "type" => "DYNAMIC",
+  ]);
+  echo '<p>';
+  echo '</p>';
+  $response = $rm->payment->qrCode('732eb1e935983d274695f250dee9eb75');
+  echo '<p>';
   var_dump($response);
-  // $response = $rm->payment->qrPay([
-  //   "currencyType" => "MYR",
-  //   "amount" => 100,
-  //   "expiry" => [
-  //     "type" => "PERMANENT",
-  //   ],
-  //   "isPreFillAmount" => true,
-  //   "method" => ["WECHATPAY"],
-  //   "order" => [
-  //     "title" => "服务费",
-  //     "detail" => "test",
-  //   ],
-  //   "redirectUrl" => "https://www.baidu.com",
-  //   "storeId" => "10946114768247530",
-  //   "type" => "DYNAMIC",
-  // ]);
-  // echo '<p>';
-  // echo '</p>';
-  // $response = $rm->payment->qrCode('732eb1e935983d274695f250dee9eb75');
-  // echo '<p>';
-  // var_dump($response);
-  // echo '</p>';
-  // $response = $rm->payment->transactionsByQrCode('732eb1e935983d274695f250dee9eb75');
-  // echo '<p>';
-  // var_dump($response);
-  // echo '</p>';
-  // $response = $rm->payment->paginate(5);
-  // echo '<p>';
-  // var_dump($response);
-  // echo '</p>';
-  // $response = $rm->payment->find('190107025318010324788828');
-  // echo '<p>';
-  // var_dump($response);
-  // echo '</p>';
-  // $response = $rm->payment->findByOrderId('123443df32323414');
-  // echo '<p>';
-  // var_dump($response);
-  // echo '</p>';
+  echo '</p>';
+  $response = $rm->payment->transactionsByQrCode('732eb1e935983d274695f250dee9eb75');
+  echo '<p>';
+  var_dump($response);
+  echo '</p>';
+  $response = $rm->payment->paginate(5);
+  echo '<p>';
+  var_dump($response);
+  echo '</p>';
+  $response = $rm->payment->find('190107025318010324788828');
+  echo '<p>';
+  var_dump($response);
+  echo '</p>';
+  $response = $rm->payment->findByOrderId('123443df32323414');
+  echo '<p>';
+  var_dump($response);
+  echo '</p>';
   $wp = new WebPayment();
   $wp->order->id = '10';
   $wp->order->title = 'Testing Web Payment';

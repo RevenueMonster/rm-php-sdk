@@ -18,14 +18,14 @@ class QRPay implements JsonSerializable
     // static $TYPE_WEB_PAYMENT = 'WEB_PAYMENT';
     // static $TYPE_MOBILE_PAYMENT = 'MOBILE_PAYMENT';
 
-    private $currencyType = 'MYR';
-    private $type = 'DYNAMIC';
-    private $amount = 0;
-    private $isPreFillAmount = true;
-    private $method = [];
+    public $currencyType = 'MYR';
+    public $type = 'DYNAMIC';
+    public $amount = 0;
+    public $isPreFillAmount = true;
+    public $method = [];
     public $order = 'WEB_PAYMENT';
-    private $storeId = '';
-    private $redirectUrl = '';
+    public $storeId = '';
+    public $redirectUrl = '';
     // public $notifyUrl = '';
 
     public function __construct(array $arguments = []) 
