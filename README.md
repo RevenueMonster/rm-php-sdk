@@ -85,6 +85,45 @@ try {
   echo $e->getMessage();
 }
 
+// Get transactions by QR Code
+try {
+  $qrCode = '732eb1e935983d274695f250dee9eb75';
+  $response = $rm->payment->transactionsByQrCode($qrCode);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Get transactions
+try {
+  $response = $rm->payment->paginate(5);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Find transaction by transaction id
+try {
+  $transactionId = '100922222732432874823';
+  $response = $rm->payment->find($transactionId);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Find transaction by order id
+try {
+  $orderId = '1234';
+  $response = $rm->payment->findByOrderId($orderId);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
 // create QR pay
 try {
   $response = $rm->payment->qrPay([

@@ -21,7 +21,7 @@ class RevenueMonster
     private $clientSecret = '';
 
     // access token for api call
-    private $accessToken = '';
+    public $accessToken = '';
 
     // private key for signature generation
     private $privateKey = '';

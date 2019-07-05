@@ -47,7 +47,6 @@ class Module
         openssl_sign(join("&", $arr), $signature, $res, OPENSSL_ALGO_SHA256);
         // free the key from memory
         openssl_free_key($res);
-        var_dump(join("&", $arr));
         $signature = base64_encode($signature);
         return $signature;
     }
@@ -59,7 +58,6 @@ class Module
 
         switch ($method) {
         case 'post':
-        echo 'POST HERE <br/>';
             $request = Request::post($url, $payload);
             break;
         case 'patch':
@@ -82,9 +80,6 @@ class Module
             'X-Nonce-Str' => $nonceStr,
             'X-Timestamp' => $timestamp,
         ];
-
-        echo '<p>'.$url.'</p>';
-        var_dump($header);
 
         $request = $request->sendsJson()
             ->expectsJson()
@@ -113,7 +108,6 @@ class Module
     protected function mapResponse(Response $response)
     {
         $body = $response->body;
-        var_dump($body);
 
         // check the response contains error payload
         if (property_exists($body, 'error')) {

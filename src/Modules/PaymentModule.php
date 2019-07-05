@@ -14,6 +14,10 @@ class PaymentModule extends Module
 
     public function qrCode(string $qrCode)
     {
+        if ($args instanceof WebPayment) {
+            $args = $args->jsonSerialize();
+        }
+
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/qrcode/$qrCode");
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
@@ -26,6 +30,10 @@ class PaymentModule extends Module
 
     public function quickPay(array $args = [])
     {
+        if ($args instanceof QuickPay) {
+            $args = $args->jsonSerialize();
+        }
+        
         $uri = $this->getOpenApiUrl('v3', '/payment/quickpay');
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }

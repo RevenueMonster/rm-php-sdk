@@ -6,6 +6,7 @@ require __DIR__.'/../vendor/autoload.php';
 use RevenueMonster\SDK\RevenueMonster;
 use RevenueMonster\SDK\Exceptions\ApiException;
 use RevenueMonster\SDK\Exceptions\ValidationException;
+use RevenueMonster\SDK\Request\QRPay;
 use RevenueMonster\SDK\Request\WebPayment;
 
 echo '<div style="width: 100%; word-break: break-all;">';
@@ -50,6 +51,16 @@ try {
   // var_dump($response);
   // echo '</p>';
   // echo '<p>QR PAY with unicode</p>';
+  $qrPay = new QRPay();
+  $qrPay->currencyType = 'MYR';
+  $qrPay->amount = 100;
+  $qrPay->isPreFillAmount = true;
+  $qrPay->method = [];
+  $qrPay->redirectUrl = 'https://www.baidu.com';
+  $qrPay->storeId = '1553067342153519097';
+  $qrPay->type = 'DYNAMIC';
+  $response = $rm->payment->qrPay($qrPay);
+  var_dump($response);
   // $response = $rm->payment->qrPay([
   //   "currencyType" => "MYR",
   //   "amount" => 100,
@@ -67,7 +78,6 @@ try {
   //   "type" => "DYNAMIC",
   // ]);
   // echo '<p>';
-  // var_dump($response);
   // echo '</p>';
   // $response = $rm->payment->qrCode('732eb1e935983d274695f250dee9eb75');
   // echo '<p>';
