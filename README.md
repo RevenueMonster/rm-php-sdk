@@ -49,6 +49,7 @@ use RevenueMonster\SDK\RevenueMonster;
 use RevenueMonster\SDK\Exceptions\ApiException;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 use RevenueMonster\SDK\Request\WebPayment;
+use RevenueMonster\SDK\Request\QRPay;
 
 // Initialise sdk instance
 $rm = new RevenueMonster([
@@ -126,22 +127,15 @@ try {
 
 // create QR pay
 try {
-  $response = $rm->payment->qrPay([
-    "currencyType" => "MYR",
-    "amount" => 100,
-    "expiry" => [
-      "type" => "PERMANENT",
-    ],
-    "isPreFillAmount" => true,
-    "method" => ["WECHATPAY"],
-    "order" => [
-      "title" => "test",
-      "detail" => "test",
-    ],
-    "redirectUrl" => "https://www.baidu.com",
-    "storeId" => "10946114768247530",
-    "type" => "DYNAMIC",
-  ]);
+  $qrPay = new QRPay();
+  $qrPay->currencyType = 'MYR';
+  $qrPay->amount = 100;
+  $qrPay->isPreFillAmount = true;
+  $qrPay->method = [];
+  $qrPay->redirectUrl = 'https://shop.v1.mamic.asia/app/index.php?i=6&c=entry&m=ewei_shopv2&do=mobile&r=order.pay_rmwxpay.complete&openid=ot3NT0dxs4A8h4sVZm-p7q_MUTtQ&fromwechat=1';
+  $qrPay->storeId = '1553067342153519097';
+  $qrPay->type = 'DYNAMIC';
+  $response = $rm->payment->qrPay($qrPay);
 } catch(ApiException $e) {
   echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
 } catch(Exception $e) {

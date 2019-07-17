@@ -18,19 +18,42 @@ class QRPay implements JsonSerializable
     // static $TYPE_WEB_PAYMENT = 'WEB_PAYMENT';
     // static $TYPE_MOBILE_PAYMENT = 'MOBILE_PAYMENT';
 
-    private $currencyType = 'MYR';
-    private $type = 'DYNAMIC';
-    private $amount = 0;
-    private $isPreFillAmount = true;
-    private $method = [];
+    public $currencyType = 'MYR';
+    public $type = 'DYNAMIC';
+    public $amount = 0;
+    public $isPreFillAmount = true;
+    public $method = [];
     public $order = 'WEB_PAYMENT';
-    private $storeId = '';
-    private $redirectUrl = '';
+    public $storeId = '';
+    public $redirectUrl = '';
     // public $notifyUrl = '';
 
     public function __construct(array $arguments = []) 
     {
         // $this->order = new Order;
+    }
+
+    public function escapeURL($url = '') 
+    {
+        $url = parse_url($url);
+        $fulluri = '';
+        if (array_key_exists("scheme", $url)) {
+            $fulluri = $fulluri.$url["scheme"]."://";
+        }
+        if (array_key_exists("host", $url)) {
+            $fulluri = $fulluri.$url["host"];
+        }
+        if (array_key_exists("path", $url)) {
+            $fulluri = $fulluri.$url["path"];
+        }
+        if (array_key_exists("query", $url)) {
+            $fulluri = $fulluri."?".urlencode($url["query"]);
+        }
+        if (array_key_exists("fragment", $url)) {
+            $fulluri = $fulluri."#".urlencode($url["fragment"]);
+        }
+
+        return $fulluri;
     }
 
     public function jsonSerialize()
@@ -47,7 +70,7 @@ class QRPay implements JsonSerializable
                 'title' => "服务费",
                 'detail' => "test",
             ],
-            'redirectUrl' => $this->redirectUrl,
+            'redirectUrl' => $this->escapeURL($this->redirectUrl),
             'storeId' => $this->storeId,
             'type' => $this->type,
         ];

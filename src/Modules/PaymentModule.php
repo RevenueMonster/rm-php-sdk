@@ -3,11 +3,15 @@
 namespace RevenueMonster\SDK\Modules;
 
 use RevenueMonster\SDK\Request\WebPayment;
+use RevenueMonster\SDK\Request\QRPay;
 
 class PaymentModule extends Module
 {
-    public function qrPay(array $args = [])
+    public function qrPay($args = [])
     {
+        if ($args instanceof QRPay) {
+            $args = $args->jsonSerialize();
+        }
         $uri = $this->getOpenApiUrl('v3', '/payment/transaction/qrcode');
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }
