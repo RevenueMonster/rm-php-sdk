@@ -60,28 +60,28 @@ try {
   $qrPay->storeId = '1553067342153519097';
   $qrPay->type = 'DYNAMIC';
   $response = $rm->payment->qrPay($qrPay);
-  var_dump($response);
-  // $response = $rm->payment->qrPay([
-  //   "currencyType" => "MYR",
-  //   "amount" => 100,
-  //   "expiry" => [
-  //     "type" => "PERMANENT",
-  //   ],
-  //   "isPreFillAmount" => true,
-  //   "method" => ["WECHATPAY"],
-  //   "order" => [
-  //     "title" => "服务费",
-  //     "detail" => "test",
-  //   ],
-  //   "redirectUrl" => "https://www.baidu.com",
-  //   "storeId" => "10946114768247530",
-  //   "type" => "DYNAMIC",
-  // ]);
+
+  $response = $rm->payment->qrPay([
+    "currencyType" => "MYR",
+    "amount" => 100,
+    "expiry" => [
+      "type" => "PERMANENT",
+    ],
+    "isPreFillAmount" => true,
+    "method" => ["WECHATPAY"],
+    "order" => [
+      "title" => "服务费",
+      "detail" => "test",
+    ],
+    "redirectUrl" => "https://shop.v1.mamic.asia/app/index.php?i=6&c=entry&m=ewei_shopv2&do=mobile&r=order.pay_rmwxpay.complete&openid=ot3NT0dxs4A8h4sVZm-p7q_MUTtQ&fromwechat=1",
+    "storeId" => "10946114768247530",
+    "type" => "DYNAMIC",
+  ]);
   // echo '<p>';
   // echo '</p>';
   // $response = $rm->payment->qrCode('732eb1e935983d274695f250dee9eb75');
   // echo '<p>';
-  // var_dump($response);
+  var_dump($response);
   // echo '</p>';
   // $response = $rm->payment->transactionsByQrCode('732eb1e935983d274695f250dee9eb75');
   // echo '<p>';
@@ -100,7 +100,7 @@ try {
   // var_dump($response);
   // echo '</p>';
   $wp = new WebPayment();
-  $wp->order->id = '10';
+  $wp->order->id = uniqid();
   $wp->order->title = 'Testing Web Payment';
   $wp->order->currencyType = 'MYR';
   $wp->order->amount = 100;
@@ -145,17 +145,3 @@ try {
 // var_dump($rm);
 
 ?>
-<!-- <!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>My PHP Website</title>
-  </head>
-
-  <body>
-    <h1>My PHP Website</h1>
-    <p>Here is some static content.</p>
-    <p><?php echo "Here is some dynamic content"; ?></p>
-  </body>
-</html> -->

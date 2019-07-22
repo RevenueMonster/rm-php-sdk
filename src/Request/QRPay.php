@@ -33,29 +33,6 @@ class QRPay implements JsonSerializable
         // $this->order = new Order;
     }
 
-    public function escapeURL($url = '') 
-    {
-        $url = parse_url($url);
-        $fulluri = '';
-        if (array_key_exists("scheme", $url)) {
-            $fulluri = $fulluri.$url["scheme"]."://";
-        }
-        if (array_key_exists("host", $url)) {
-            $fulluri = $fulluri.$url["host"];
-        }
-        if (array_key_exists("path", $url)) {
-            $fulluri = $fulluri.$url["path"];
-        }
-        if (array_key_exists("query", $url)) {
-            $fulluri = $fulluri."?".urlencode($url["query"]);
-        }
-        if (array_key_exists("fragment", $url)) {
-            $fulluri = $fulluri."#".urlencode($url["fragment"]);
-        }
-
-        return $fulluri;
-    }
-
     public function jsonSerialize()
     {
         $data = [
@@ -70,7 +47,7 @@ class QRPay implements JsonSerializable
                 'title' => "服务费",
                 'detail' => "test",
             ],
-            'redirectUrl' => $this->escapeURL($this->redirectUrl),
+            'redirectUrl' => escape_url($this->redirectUrl),
             'storeId' => $this->storeId,
             'type' => $this->type,
         ];

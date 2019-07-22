@@ -9,8 +9,16 @@ class PaymentModule extends Module
 {
     public function qrPay($args = [])
     {
-        if ($args instanceof QRPay) {
+        if ($args instanceof QRPay) 
+        {
             $args = $args->jsonSerialize();
+        } 
+        else if (is_array($args)) 
+        {
+            if (array_key_exists('redirectUrl', $args)) 
+            {
+                $args['redirectUrl'] = escape_url($args['redirectUrl']);
+            }
         }
         $uri = $this->getOpenApiUrl('v3', '/payment/transaction/qrcode');
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());

@@ -31,7 +31,7 @@ class Module
             $data = '';
             if (!empty($payload)) {
                 array_ksort($payload);
-                $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+                $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_APOS));
             }
             array_push($arr, "data=$data");
         }
