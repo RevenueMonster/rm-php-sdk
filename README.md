@@ -131,6 +131,8 @@ try {
   $qrPay->currencyType = 'MYR';
   $qrPay->amount = 100;
   $qrPay->isPreFillAmount = true;
+  $qrPay->order->title = '服务费';
+  $qrPay->order->detail = 'testing';
   $qrPay->method = [];
   $qrPay->redirectUrl = 'https://shop.v1.mamic.asia/app/index.php?i=6&c=entry&m=ewei_shopv2&do=mobile&r=order.pay_rmwxpay.complete&openid=ot3NT0dxs4A8h4sVZm-p7q_MUTtQ&fromwechat=1';
   $qrPay->storeId = '1553067342153519097';

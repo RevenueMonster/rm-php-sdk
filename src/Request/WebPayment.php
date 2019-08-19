@@ -37,8 +37,8 @@ class WebPayment implements JsonSerializable
             'method' => $this->method,
             'type' => $this->type,
             'storeId' => $this->storeId,
-            'redirectUrl' => $this->redirectUrl,
-            'notifyUrl' => $this->notifyUrl,
+            'redirectUrl' => escape_url($this->redirectUrl),
+            'notifyUrl' => escape_url($this->notifyUrl),
         ];
 
         $validator = new Validator;

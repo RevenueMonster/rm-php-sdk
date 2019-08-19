@@ -3,6 +3,7 @@
 namespace RevenueMonster\SDK\Request;
 
 use Exception;
+use stdClass;
 use JsonSerializable;
 use Rakit\Validation\Validator;
 use RevenueMonster\SDK\Request\Order;
@@ -26,11 +27,13 @@ class QRPay implements JsonSerializable
     public $order = 'WEB_PAYMENT';
     public $storeId = '';
     public $redirectUrl = '';
-    // public $notifyUrl = '';
 
     public function __construct(array $arguments = []) 
     {
-        // $this->order = new Order;
+        $order = new stdClass;
+        $order->title = '';
+        $order->detail = '';
+        $this->order = $order;
     }
 
     public function jsonSerialize()
@@ -44,8 +47,8 @@ class QRPay implements JsonSerializable
             'isPreFillAmount' => $this->isPreFillAmount,
             'method' => $this->method,
             'order' => [
-                'title' => "服务费",
-                'detail' => "test",
+                'title' => $this->order->title,
+                'detail' => $this->order->detail,
             ],
             'redirectUrl' => escape_url($this->redirectUrl),
             'storeId' => $this->storeId,

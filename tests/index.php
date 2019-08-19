@@ -56,11 +56,14 @@ try {
   $qrPay->amount = 100;
   $qrPay->isPreFillAmount = true;
   $qrPay->method = [];
+  $qrPay->order->title = '服务费';
+  $qrPay->order->detail = 'testing';
   $qrPay->redirectUrl = 'https://shop.v1.mamic.asia/app/index.php?i=6&c=entry&m=ewei_shopv2&do=mobile&r=order.pay_rmwxpay.complete&openid=ot3NT0dxs4A8h4sVZm-p7q_MUTtQ&fromwechat=1';
   $qrPay->storeId = '1553067342153519097';
   $qrPay->type = 'DYNAMIC';
   $response = $rm->payment->qrPay($qrPay);
-
+  var_dump($response);
+  
   $response = $rm->payment->qrPay([
     "currencyType" => "MYR",
     "amount" => 100,
@@ -113,6 +116,22 @@ try {
   $response = $rm->payment->createWebPayment($wp);
   echo '<p>'.$response->checkoutId.'</p>'; // Checkout ID
   echo '<p>'.$response->url.'</p>'; // Payment gateway url
+
+  $wp->order->id = '442';
+  $wp->order->title = '【原味系列】 猫山王榴';
+  $wp->order->currencyType = 'MYR';
+  $wp->order->amount = 13800;
+  $wp->order->detail = '';
+  $wp->order->additionalData = 'SH20190819100656262762';
+  $wp->method = ['ALIPAY_CN'];
+  $wp->storeId = "1553067342153519097";
+  $wp->redirectUrl = 'http://ydd.gzchujiao.com/app/index.php?i=3&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.success&id=442'; 
+  $wp->notifyUrl = 'http://ydd.gzchujiao.com/addons/ewei_shopv2/payment/rm/notify.php';
+
+  $response = $rm->payment->createWebPayment($wp);
+  var_dump($response);
+  echo '<p>'.$response->checkoutId.'</p>'; // Checkout ID
+  echo '<p>'.$response->url.'</p>';
 } catch(ApiException $e) {
   echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
 } catch(ValidationException $e) { 
@@ -120,6 +139,8 @@ try {
 }  catch(Exception $e) {
   echo $e->getMessage();
 }
+
+
 
 // $rm->store->find($id); // $store->save();
 // $rm->store->delete($id);
