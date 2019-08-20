@@ -24,6 +24,7 @@ class WebPayment implements JsonSerializable
     public $storeId = '';
     public $redirectUrl = '';
     public $notifyUrl = '';
+    public $layoutVersion = '';
 
     public function __construct(array $arguments = []) 
     {
@@ -39,6 +40,7 @@ class WebPayment implements JsonSerializable
             'storeId' => $this->storeId,
             'redirectUrl' => escape_url($this->redirectUrl),
             'notifyUrl' => escape_url($this->notifyUrl),
+            'layoutVersion' => $this->layoutVersion,
         ];
 
         $validator = new Validator;

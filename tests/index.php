@@ -127,6 +127,7 @@ try {
   $wp->storeId = "1553067342153519097";
   $wp->redirectUrl = 'http://ydd.gzchujiao.com/app/index.php?i=3&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.success&id=442'; 
   $wp->notifyUrl = 'http://ydd.gzchujiao.com/addons/ewei_shopv2/payment/rm/notify.php';
+  $wp->layoutVersion = 'v1';
 
   $response = $rm->payment->createWebPayment($wp);
   var_dump($response);

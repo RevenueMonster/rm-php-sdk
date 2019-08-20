@@ -26,7 +26,7 @@ composer require revenuemonster/sdk
 - [x] Payment (Quick Pay) - Get All Payment Transactions
 - [x] Payment (Quick Pay) - Get All Payment Transaction By ID
 - [ ] Payment (Quick Pay) - Daily Settlement Report
-- [x] Payment (Checkout) - Create Web/Mobile Payment
+- [x] Payment (Checkout) - Create Web/Mobile Payment (New UI support)
 - [ ] Give Loyalty Point
 - [ ] Get Loyalty Members
 - [ ] Get Loyalty Member
@@ -156,6 +156,7 @@ try {
   $wp->storeId = "1553067342153519097";
   $wp->redirectUrl = 'https://google.com';
   $wp->notifyUrl = 'https://google.com';
+  $wp->layoutVersion = 'v1';
 
   $response = $rm->payment->createWebPayment($wp);
   echo $response->checkoutId; // Checkout ID
