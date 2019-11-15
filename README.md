@@ -50,6 +50,7 @@ use RevenueMonster\SDK\Exceptions\ApiException;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 use RevenueMonster\SDK\Request\WebPayment;
 use RevenueMonster\SDK\Request\QRPay;
+use RevenueMonster\SDK\Request\QuickPay;
 
 // Initialise sdk instance
 $rm = new RevenueMonster([
@@ -144,7 +145,7 @@ try {
   echo $e->getMessage();
 }
 
-
+// create Web payment
 try {
   $wp = new WebPayment;
   $wp->order->id = '10020';
@@ -165,7 +166,29 @@ try {
   echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
 } catch(ValidationException $e) {
   var_dump($e->getMessage());
-}  catch(Exception $e) {
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// create Quick pay
+try {
+  $qp = new QuickPay;
+  $qp->authCode = '281011026026517778602435';
+  $qp->order->id = '443';
+  $qp->order->title = '【原味系列】 猫山王榴';
+  $qp->order->currencyType = 'MYR';
+  $qp->order->amount = 10;
+  $qp->order->detail = '';
+  $qp->order->additionalData = 'SH20190819100656262762';
+  $qp->ipAddress = '8.8.8.8';
+  $qp->storeId = "1553067342153519097";
+
+  $response = $rm->payment->quickPay($qp);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(ValidationException $e) {
+  var_dump($e->getMessage());
+} catch(Exception $e) {
   echo $e->getMessage();
 }
 ```

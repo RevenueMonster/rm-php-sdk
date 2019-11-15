@@ -7,6 +7,7 @@ use RevenueMonster\SDK\RevenueMonster;
 use RevenueMonster\SDK\Exceptions\ApiException;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 use RevenueMonster\SDK\Request\QRPay;
+use RevenueMonster\SDK\Request\QuickPay;
 use RevenueMonster\SDK\Request\WebPayment;
 
 echo '<div style="width: 100%; word-break: break-all;">';
@@ -84,6 +85,7 @@ try {
   // echo '</p>';
   // $response = $rm->payment->qrCode('732eb1e935983d274695f250dee9eb75');
   // echo '<p>';
+  echo '<p><b>QR Payment</b><p>';
   var_dump($response);
   // echo '</p>';
   // $response = $rm->payment->transactionsByQrCode('732eb1e935983d274695f250dee9eb75');
@@ -117,7 +119,7 @@ try {
   echo '<p>'.$response->checkoutId.'</p>'; // Checkout ID
   echo '<p>'.$response->url.'</p>'; // Payment gateway url
 
-  $wp->order->id = '442';
+  $wp->order->id = '48842';
   $wp->order->title = '【原味系列】 猫山王榴';
   $wp->order->currencyType = 'MYR';
   $wp->order->amount = 13800;
@@ -133,6 +135,22 @@ try {
   var_dump($response);
   echo '<p>'.$response->checkoutId.'</p>'; // Checkout ID
   echo '<p>'.$response->url.'</p>';
+
+  $qp = new QuickPay;
+  $qp->authCode = '281011026026517778602435';
+  $qp->order->id = '443';
+  $qp->order->title = '【原味系列】 猫山王榴';
+  $qp->order->currencyType = 'MYR';
+  $qp->order->amount = 10;
+  $qp->order->detail = '';
+  $qp->order->additionalData = 'SH20190819100656262762';
+  $qp->ipAddress = '8.8.8.8';
+  $qp->storeId = "1553067342153519097";
+
+  echo '<p>QuickPay</p>';
+  $response = $rm->payment->quickPay($qp);
+  var_dump($response);
+
 } catch(ApiException $e) {
   echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
 } catch(ValidationException $e) { 

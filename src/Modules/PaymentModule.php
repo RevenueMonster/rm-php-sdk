@@ -4,6 +4,7 @@ namespace RevenueMonster\SDK\Modules;
 
 use RevenueMonster\SDK\Request\WebPayment;
 use RevenueMonster\SDK\Request\QRPay;
+use RevenueMonster\SDK\Request\QuickPay;
 
 class PaymentModule extends Module
 {
@@ -40,7 +41,7 @@ class PaymentModule extends Module
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
 
-    public function quickPay(array $args = [])
+    public function quickPay($args = [])
     {
         if ($args instanceof QuickPay) {
             $args = $args->jsonSerialize();
