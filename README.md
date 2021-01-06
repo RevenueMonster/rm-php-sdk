@@ -39,6 +39,8 @@ composer require revenuemonster/sdk
 - [ ] Send Notification (Merchant)
 - [ ] Send Notification (Store)
 - [ ] Send Notification (User)
+- [x] eKYC - Mykad Prediction
+- [x] eKYC - Face Verification
 
 ### Examples
 
@@ -188,6 +190,58 @@ try {
   echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
 } catch(ValidationException $e) {
   var_dump($e->getMessage());
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+```
+
+## eKYC Module
+
+The Revenue Monster eKYC (Electronic Know Your Customer) module provides features to complete the onboarding experience.
+
+All the methods in this module accepts only the data portion in a base64 data url.
+
+For example, you might have a base64 string as below, just send us the data part.
+
+```
+Format - data:[<mediatype>][;base64],<data>
+
+Example - data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE......
+
+Data Portion - /9j/4AAQSkZJRgABAQE......
+```
+
+### Mykad Prediction
+
+This method will detect and validate all the discernible MyKad in a picture and return data such as:
+
+1. Name
+2. Gender
+3. MyKad Number
+4. Addresses, postcode, city, state
+5. Is muslim or not muslim
+
+```php
+try {
+  $mykad = new PredictMykad();
+  $mykad->base64Image = file_get_contents(__DIR__.'/mykad.txt');
+  $response = $rm->ekyc->call($mykad);
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+```
+
+### Face Verification
+
+This method will recognize and verify if the human face present on 2 images are the same person or not.
+
+```php
+try {
+  $image = file_get_contents(__DIR__.'/face.txt');
+  $face = new VerifyFace();
+  $face->base64Image1 = $image;
+  $face->base64Image2 = $image;
+  $response = $rm->ekyc->call($face);
 } catch(Exception $e) {
   echo $e->getMessage();
 }
