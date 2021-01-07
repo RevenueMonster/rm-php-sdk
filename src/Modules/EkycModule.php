@@ -10,7 +10,7 @@ class EKYCModule extends Module
     {
         $uri = $this->getOpenApiUrl('v3', '/service');
         $req = new stdClass;
-        $req->service = "test.ekyc";
+        $req->service = "ekyc";
         $req->version = "v1";
 
         $args = $args->jsonSerialize();
