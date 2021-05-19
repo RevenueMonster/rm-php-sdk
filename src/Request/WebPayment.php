@@ -5,6 +5,7 @@ namespace RevenueMonster\SDK\Request;
 use Exception;
 use JsonSerializable;
 use Rakit\Validation\Validator;
+use RevenueMonster\SDK\Request\Customer;
 use RevenueMonster\SDK\Request\Order;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 
@@ -19,6 +20,7 @@ class WebPayment implements JsonSerializable
     static $TYPE_MOBILE_PAYMENT = 'MOBILE_PAYMENT';
 
     public $order;
+    public $customer;
     public $method = [];
     public $type = 'WEB_PAYMENT';
     public $storeId = '';
@@ -29,12 +31,14 @@ class WebPayment implements JsonSerializable
     public function __construct(array $arguments = []) 
     {
         $this->order = new Order;
+        $this->customer = new Customer;
     }
 
     public function jsonSerialize()
     {
         $data = [
             'order' => $this->order->jsonSerialize(),
+            'customer' => $this->customer->jsonSerialize(),
             'method' => $this->method,
             'type' => $this->type,
             'storeId' => $this->storeId,
@@ -46,6 +50,7 @@ class WebPayment implements JsonSerializable
         $validator = new Validator;
         $validation = $validator->make($data, [
             'order' => 'required',
+            'customer' => 'required',
             'type' => 'required|in:WEB_PAYMENT,MOBILE_PAYMENT',
             'storeId' => 'required|max:255',
             'redirectUrl' => 'required|url',
