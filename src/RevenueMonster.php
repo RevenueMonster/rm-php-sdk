@@ -6,6 +6,7 @@ use Httpful\Request;
 use Datetime;
 use DateInterval;
 use Exception;
+use RevenueMonster\SDK\Exceptions\ApiException;
 
 class RevenueMonster 
 {
@@ -75,6 +76,11 @@ class RevenueMonster
 
         // $filepath = __DIR__.'/storage/access_token.json';
         $body = $response->body;
+
+        if (property_exists($body, 'error')) {
+            throw new ApiException($response->code, $body->error->code, $body->error->message);
+        } 
+
         $this->accessToken = $body->accessToken;
         // file_put_contents($filepath, json_encode($body));
         $expiresIn = $body->expiresIn - 1000;
