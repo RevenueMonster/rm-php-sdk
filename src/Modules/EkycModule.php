@@ -4,7 +4,7 @@ namespace RevenueMonster\SDK\Modules;
 
 use stdClass;
 
-class EKYCModule extends Module 
+class EKYCModule extends Module
 {
     public function call($args)
     {

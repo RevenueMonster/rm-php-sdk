@@ -10,7 +10,7 @@ use RevenueMonster\SDK\Exceptions\ValidationException;
 class Order implements JsonSerializable
 {
     public $id = '';
-    public $currencyType = 'MYR'; 
+    public $currencyType = 'MYR';
     public $amount = 0;
     public $title = '';
     public $detail = '';

@@ -10,7 +10,7 @@ use RevenueMonster\SDK\Exceptions\ValidationException;
 class Customer implements JsonSerializable
 {
     public $userId = '';
-    public $email = ''; 
+    public $email = '';
     public $countryCode = '';
     public $phoneNumber = '';
 

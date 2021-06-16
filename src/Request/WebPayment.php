@@ -9,7 +9,7 @@ use RevenueMonster\SDK\Request\Customer;
 use RevenueMonster\SDK\Request\Order;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 
-class WebPayment implements JsonSerializable 
+class WebPayment implements JsonSerializable
 {
     static $WALLET_WECHAT_MY = 'WECHATPAY_MY';
     static $WALLET_WECHAT_CN = 'WECHATPAY_CN';
@@ -28,7 +28,7 @@ class WebPayment implements JsonSerializable
     public $notifyUrl = '';
     public $layoutVersion = '';
 
-    public function __construct(array $arguments = []) 
+    public function __construct(array $arguments = [])
     {
         $this->order = new Order;
         $this->customer = new Customer;
@@ -56,9 +56,9 @@ class WebPayment implements JsonSerializable
             'redirectUrl' => 'required|url',
             'notifyUrl' => 'required|url',
         ]);
-        
+
         $validation->validate();
-        
+
         if ($validation->fails()) {
             throw new ValidationException($validation->errors());
         }

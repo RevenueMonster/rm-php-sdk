@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace RevenueMonster\SDK\Request;
 
@@ -12,7 +12,7 @@ class PredictMykad implements JsonSerializable
 {
     public $base64Image = '';
 
-    public function __construct(array $arguments = []) 
+    public function __construct(array $arguments = [])
     {
         $request = new stdClass;
         $request->base64Image = $this->base64Image;
@@ -32,7 +32,7 @@ class PredictMykad implements JsonSerializable
         $validation = $validator->make($data, [
             'request.query_image_content' => 'required',
         ]);
-        
+
         $validation->validate();
 
         if ($validation->fails()) {

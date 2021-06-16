@@ -2,7 +2,7 @@
 
 namespace RevenueMonster\SDK\Modules;
 
-class MerchantModule extends Module 
+class MerchantModule extends Module
 {
     public function profile()
     {
@@ -10,7 +10,7 @@ class MerchantModule extends Module
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
 
-    public function subscriptions() 
+    public function subscriptions()
     {
         $uri = $this->getOpenApiUrl('v3', '/merchant/subscriptions');
         return $this->mapResponse($this->callApi('get', $uri)->send());
