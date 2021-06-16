@@ -1,18 +1,25 @@
 {
   "name": "revenuemonster/sdk",
-  "description": "RMSDK - A SDK for RevenueMonster endpoint",
+  "description": "A PHP SDK for RevenueMonster APIs",
   "license": "MIT",
+  "keywords": ["rm-sdk", "php", "rm"],
   "authors": [
     {
-      "name": "SianLoong",
-      "email": "sianloong@revenuemonster.my"
+      "name": "Lee Sian Loong",
+      "email": "sianloong@revenuemonster.my",
+      "role": "Developer"
+    },
+    {
+      "name": "Rex Low",
+      "email": "rex@revenuemonster.my",
+      "role": "Developer"
     }
   ],
   "require": {
-    "php": ">=7.1.3",
-    "nategood/httpful": "*",
-    "tightenco/collect": "^8.3",
-    "rakit/validation": "^1.1"
+    "php": "^8.0",
+    "nategood/httpful": "^0.3.2",
+    "tightenco/collect": "^8.34.0",
+    "rakit/validation": "^1.4.0"
   },
   "autoload": {
     "files": [

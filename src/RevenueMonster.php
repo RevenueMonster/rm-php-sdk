@@ -8,7 +8,7 @@ use DateInterval;
 use Exception;
 use RevenueMonster\SDK\Exceptions\ApiException;
 
-class RevenueMonster 
+class RevenueMonster
 {
     private static $domains = [
         'oauth' => 'oauth.revenuemonster.my',
@@ -26,7 +26,7 @@ class RevenueMonster
 
     // private key for signature generation
     private $privateKey = '';
-    
+
     // public key for signature verification
     private $publicKey = '';
 
@@ -36,7 +36,7 @@ class RevenueMonster
     // access token refresh time
     private $refreshTime;
 
-    private $tokenPath = '/storage/access_token.json';
+    // private $tokenPath = '/storage/access_token.json';
 
     private $modules = [
         'merchant' => Modules\MerchantModule::class,
@@ -46,7 +46,7 @@ class RevenueMonster
         'ekyc' => Modules\EkycModule::class,
     ];
 
-    public function __construct(array $arguments = []) 
+    public function __construct(array $arguments = [])
     {
         foreach ($arguments as $property => $argument) {
             if (!property_exists($this, $property)) {
@@ -64,11 +64,11 @@ class RevenueMonster
     private function oauth()
     {
         $uri = $this->getOpenApiUrl('v1', '/token', 'oauth');
-        $hash = base64_encode($this->clientId.':'.$this->clientSecret);
+        $hash = base64_encode($this->clientId . ':' . $this->clientSecret);
 
         $response = Request::post($uri, [
-                'grantType' => 'client_credentials'
-            ])
+            'grantType' => 'client_credentials'
+        ])
             ->sendsJson()
             ->expectsJson()
             ->addHeader('Authorization', "Basic $hash")
@@ -79,13 +79,13 @@ class RevenueMonster
 
         if (property_exists($body, 'error')) {
             throw new ApiException($response->code, $body->error->code, $body->error->message);
-        } 
+        }
 
         $this->accessToken = $body->accessToken;
         // file_put_contents($filepath, json_encode($body));
         $expiresIn = $body->expiresIn - 1000;
-        $this->refreshTime = (new Datetime)->add(new DateInterval('PT'.$expiresIn.'S'));
-    } 
+        $this->refreshTime = (new Datetime)->add(new DateInterval('PT' . $expiresIn . 'S'));
+    }
 
     public function getDomain(string $usage)
     {

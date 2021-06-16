@@ -79,5 +79,3 @@ if (! class_exists(RevenueMonster::class)) {
     }
 
 }
-
-?>

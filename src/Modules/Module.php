@@ -11,7 +11,7 @@ class Module
 {
     protected $rm = null;
 
-    public function __construct(RevenueMonster $rm) 
+    public function __construct(RevenueMonster $rm)
     {
         $this->rm = $rm;
     }
@@ -45,8 +45,9 @@ class Module
         $signature = '';
         // compute signature
         openssl_sign(join("&", $arr), $signature, $res, OPENSSL_ALGO_SHA256);
+
         // free the key from memory
-        openssl_free_key($res);
+        unset($res);
         $signature = base64_encode($signature);
         return $signature;
     }
@@ -57,18 +58,18 @@ class Module
         $method = strtolower($method);
 
         switch ($method) {
-        case 'post':
-            $request = Request::post($url, $payload);
-            break;
-        case 'patch':
-            $request = Request::patch($patch, $payload);
-            break;
-        case 'delete':
-            $request = Request::delete($url);
-            break;
-        default:
-            $request = Request::get($url);
-            break;
+            case 'post':
+                $request = Request::post($url, $payload);
+                break;
+            case 'patch':
+                $request = Request::patch($url, $payload);
+                break;
+            case 'delete':
+                $request = Request::delete($url);
+                break;
+            default:
+                $request = Request::get($url);
+                break;
         }
 
         $nonceStr = random_str(32);
@@ -120,6 +121,4 @@ class Module
 
         throw new ApiException($response->code, ApiException::$UNKNOWN_ERROR, 'unexpected error');
     }
-
-
 }
