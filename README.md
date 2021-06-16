@@ -3,13 +3,18 @@
 ## 🪣 Minimum Requirements
 
 - [php8](https://www.php.net/releases/8.0/en.php)
-- [composer](https://getcomposer.org/) - PHP package manager
+- [composer](https://getcomposer.org/) - A PHP package manager
 
 ## 🔨 Installation
 
 ```console
 composer require revenuemonster/sdk
 ```
+
+## 📻 Legacy Support
+
+- If you using `php5.7`, please refer to branch [php5.7](https://github.com/RevenueMonster/rm-php-sdk/tree/php5.6)
+- If you using `php7`, please refer to branch [php7](https://github.com/RevenueMonster/rm-php-sdk/tree/php7)
 
 ## ✨ Covered Functions
 
@@ -48,11 +53,6 @@ composer require revenuemonster/sdk
 - [ ] Send Notification (User)
 - [x] eKYC - Mykad Prediction
 - [x] eKYC - Face Verification
-
-## ❓ FAQs
-
-- If you using php5.7, please refer to branch 5.7
-- If you using php7.0, please refer to branch 7.0
 
 ## 📝 Examples
 
