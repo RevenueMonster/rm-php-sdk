@@ -45,8 +45,9 @@ class Module
         $signature = '';
         // compute signature
         openssl_sign(join("&", $arr), $signature, $res, OPENSSL_ALGO_SHA256);
+
         // free the key from memory
-        openssl_free_key($res);
+        unset($res);
         $signature = base64_encode($signature);
         return $signature;
     }

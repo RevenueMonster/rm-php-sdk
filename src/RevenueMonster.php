@@ -36,7 +36,7 @@ class RevenueMonster
     // access token refresh time
     private $refreshTime;
 
-    private $tokenPath = '/storage/access_token.json';
+    // private $tokenPath = '/storage/access_token.json';
 
     private $modules = [
         'merchant' => Modules\MerchantModule::class,
