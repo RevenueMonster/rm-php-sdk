@@ -8,49 +8,73 @@ use RevenueMonster\SDK\Request\QuickPay;
 
 class PaymentModule extends Module
 {
+    /**
+     * Quick pay, qr code payment
+     * @param (array|QRPay)
+     * @return stdClass
+     * @throws ApiException
+     */
     public function qrPay($args = [])
     {
-        if ($args instanceof QRPay) 
-        {
+        if ($args instanceof QRPay) {
             $args = $args->jsonSerialize();
-        } 
-        else if (is_array($args)) 
-        {
-            if (array_key_exists('redirectUrl', $args)) 
-            {
+        } else if (is_array($args)) {
+            if (array_key_exists('redirectUrl', $args)) {
                 $args['redirectUrl'] = escape_url($args['redirectUrl']);
             }
         }
+
         $uri = $this->getOpenApiUrl('v3', '/payment/transaction/qrcode');
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }
 
+    /**
+     * Get order details using qr reference code
+     * @param string
+     * @return stdClass
+     * @throws ApiException
+     */
     public function qrCode(string $qrCode)
     {
-        if ($args instanceof WebPayment) {
-            $args = $args->jsonSerialize();
-        }
-
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/qrcode/$qrCode");
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
-    
+
+    /**
+     * Get transaction by qr reference code
+     * @param string
+     * @param int
+     * @return stdClass
+     * @throws ApiException
+     */
     public function transactionsByQrCode(string $qrCode, int $limit = 10)
     {
         $uri = $this->getOpenApiUrl('v3', "/payment/transaction/qrcode/{$qrCode}/transactions?limit=$limit");
         return $this->mapResponse($this->callApi('get', $uri)->send());
     }
 
+    /**
+     * Quick pay, qr code payment (merchant scan user)
+     * @param (array|QuickPay)
+     * @return stdClass
+     * @throws ApiException
+     */
     public function quickPay($args = [])
     {
         if ($args instanceof QuickPay) {
             $args = $args->jsonSerialize();
         }
-        
+
         $uri = $this->getOpenApiUrl('v3', '/payment/quickpay');
         return $this->mapResponse($this->callApi('post', $uri, $args)->send());
     }
 
+    /**
+     * Refund payment
+     * @param array
+     * @return stdClass
+     * @throws ApiException
+     */
     public function refund(array $args = [])
     {
         $uri = $this->getOpenApiUrl('v3', '/payment/refund');

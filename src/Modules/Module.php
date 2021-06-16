@@ -11,7 +11,7 @@ class Module
 {
     protected $rm = null;
 
-    public function __construct(RevenueMonster $rm) 
+    public function __construct(RevenueMonster $rm)
     {
         $this->rm = $rm;
     }
@@ -57,18 +57,18 @@ class Module
         $method = strtolower($method);
 
         switch ($method) {
-        case 'post':
-            $request = Request::post($url, $payload);
-            break;
-        case 'patch':
-            $request = Request::patch($patch, $payload);
-            break;
-        case 'delete':
-            $request = Request::delete($url);
-            break;
-        default:
-            $request = Request::get($url);
-            break;
+            case 'post':
+                $request = Request::post($url, $payload);
+                break;
+            case 'patch':
+                $request = Request::patch($url, $payload);
+                break;
+            case 'delete':
+                $request = Request::delete($url);
+                break;
+            default:
+                $request = Request::get($url);
+                break;
         }
 
         $nonceStr = random_str(32);
@@ -120,6 +120,4 @@ class Module
 
         throw new ApiException($response->code, ApiException::$UNKNOWN_ERROR, 'unexpected error');
     }
-
-
 }
