@@ -1,10 +1,17 @@
-# RM-API-SDK-PHP
+# RevenueMonster PHP SDK
 
-```bash
+## 🪣 Minimum Requirements
+
+- [php8](https://www.php.net/releases/8.0/en.php)
+- [composer](https://getcomposer.org/) - PHP package manager
+
+## 🔨 Installation
+
+```console
 composer require revenuemonster/sdk
 ```
 
-### Covered Functions
+## ✨ Covered Functions
 
 - [x] Client Credentials (Authentication)
 - [x] Refresh Token (Authentication)
@@ -42,7 +49,12 @@ composer require revenuemonster/sdk
 - [x] eKYC - Mykad Prediction
 - [x] eKYC - Face Verification
 
-### Examples
+## ❓ FAQs
+
+- If you using php5.7, please refer to branch 5.7
+- If you using php7.0, please refer to branch 7.0
+
+## 📝 Examples
 
 ```php
 require __DIR__.'/vendor/autoload.php';
