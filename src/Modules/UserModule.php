@@ -2,7 +2,7 @@
 
 namespace RevenueMonster\SDK\Modules;
 
-class UserModule extends Module 
+class UserModule extends Module
 {
     public function profile()
     {

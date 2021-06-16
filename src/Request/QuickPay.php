@@ -8,7 +8,7 @@ use Rakit\Validation\Validator;
 use RevenueMonster\SDK\Request\Order;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 
-class QuickPay implements JsonSerializable 
+class QuickPay implements JsonSerializable
 {
     public $authCode;
     public $order;
@@ -16,7 +16,7 @@ class QuickPay implements JsonSerializable
     public $terminalId;
     public $storeId;
 
-    public function __construct(array $arguments = []) 
+    public function __construct(array $arguments = [])
     {
         $this->order = new Order;
     }
@@ -38,9 +38,9 @@ class QuickPay implements JsonSerializable
             'ipAddress' => 'required|ip',
             'storeId' => 'required',
         ]);
-        
+
         $validation->validate();
-        
+
         if ($validation->fails()) {
             throw new ValidationException($validation->errors());
         }

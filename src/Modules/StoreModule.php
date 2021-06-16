@@ -2,7 +2,7 @@
 
 namespace RevenueMonster\SDK\Modules;
 
-class StoreModule extends Module 
+class StoreModule extends Module
 {
     public function paginate(int $limit = 10)
     {

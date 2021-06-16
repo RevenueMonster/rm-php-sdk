@@ -23,35 +23,6 @@ $rm = new RevenueMonster([
 
 
 try {
-  // echo '<p>';
-  // var_dump($rm->merchant->profile());
-  // echo '</p>';
-  // echo '<p>';
-  // var_dump($rm->merchant->subscriptions());
-  // echo '</p>';
-  // echo '<p>';
-  // var_dump($rm->store->paginate(1));
-  // echo '</p>';
-  // $response = $rm->payment->qrPay([
-  //   "currencyType" => "MYR",
-  //   "amount" => 100,
-  //   "expiry" => [
-  //     "type" => "PERMANENT",
-  //   ],
-  //   "isPreFillAmount" => true,
-  //   "method" => ["WECHATPAY"],
-  //   "order" => [
-  //     "title" => "test",
-  //     "detail" => "test",
-  //   ],
-  //   "redirectUrl" => "https://www.baidu.com",
-  //   "storeId" => "10946114768247530",
-  //   "type" => "DYNAMIC",
-  // ]);
-  // echo '<p>';
-  // var_dump($response);
-  // echo '</p>';
-  // echo '<p>QR PAY with unicode</p>';
   $qrPay = new QRPay();
   $qrPay->currencyType = 'MYR';
   $qrPay->amount = 100;
@@ -183,5 +154,3 @@ try {
 // $rm->pushNotification->byStore();
 // $rm->pushNotification->byUser();
 // var_dump($rm);
-
-?>

@@ -9,7 +9,7 @@ use Rakit\Validation\Validator;
 use RevenueMonster\SDK\Request\Order;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 
-class QRPay implements JsonSerializable 
+class QRPay implements JsonSerializable
 {
     // static $WALLET_WECHAT_MY = 'WECHATPAY_MY';
     // static $WALLET_WECHAT_CN = 'WECHATPAY_CN';
@@ -28,7 +28,7 @@ class QRPay implements JsonSerializable
     public $storeId = '';
     public $redirectUrl = '';
 
-    public function __construct(array $arguments = []) 
+    public function __construct(array $arguments = [])
     {
         $order = new stdClass;
         $order->title = '';
@@ -64,9 +64,9 @@ class QRPay implements JsonSerializable
             'storeId' => 'required',
             'type' => 'required|in:DYNAMIC,STATIC',
         ]);
-        
+
         $validation->validate();
-        
+
         if ($validation->fails()) {
             throw new ValidationException($validation->errors());
         }

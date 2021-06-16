@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace RevenueMonster\SDK\Request;
 
@@ -13,7 +13,7 @@ class VerifyFace implements JsonSerializable
     public $base64Image1 = '';
     public $base64Image2 = '';
 
-    public function __construct(array $arguments = []) 
+    public function __construct(array $arguments = [])
     {
         $request = new stdClass;
         $request->base64Image1 = $this->base64Image1;
@@ -36,7 +36,7 @@ class VerifyFace implements JsonSerializable
             'request.query_image_content_1' => 'required',
             'request.query_image_content_2' => 'required',
         ]);
-        
+
         $validation->validate();
 
         if ($validation->fails()) {
