@@ -96,7 +96,7 @@ class RevenueMonster
         return $domain;
     }
 
-    public function getOpenApiUrl(string $version = 'v1', string $url, string $usage = 'api')
+    public function getOpenApiUrl(string $version = 'v1', string $url = '', string $usage = 'api')
     {
         $url = trim($url, '/');
         $uri = "{$this->getDomain($usage)}/$version/$url";
