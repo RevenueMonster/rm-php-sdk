@@ -16,7 +16,7 @@ class Module
         $this->rm = $rm;
     }
 
-    public function getOpenApiUrl(string $version = '1.0', string $url, string $usage = 'api')
+    public function getOpenApiUrl(string $version = '1.0', string $url = '', string $usage = 'api')
     {
         return $this->rm->getOpenApiUrl($version, $url, $usage);
     }
