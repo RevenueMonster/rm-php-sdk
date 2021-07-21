@@ -2,17 +2,31 @@
   "name": "revenuemonster/sdk",
   "description": "A PHP SDK for RevenueMonster APIs",
   "license": "MIT",
-  "keywords": ["rm-sdk", "php", "rm"],
+  "keywords": [
+    "rm-sdk",
+    "php",
+    "rm"
+  ],
   "authors": [
     {
       "name": "Lee Sian Loong",
-      "email": "sianloong@revenuemonster.my",
+      "email": "sianloong90@gmail.com",
+      "homepage": "https://github.com/si3nloong",
       "role": "Developer"
     },
     {
       "name": "Rex Low",
       "email": "rex@revenuemonster.my",
+      "homepage": "https://github.com/rexlow",
       "role": "Developer"
+    },
+    {
+      "name": "Alta",
+      "homepage": "https://github.com/falconeri"
+    },
+    {
+      "name": "IceBay",
+      "homepage": "https://github.com/IceBay"
     }
   ],
   "require": {
