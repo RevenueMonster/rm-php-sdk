@@ -363,16 +363,16 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v8.79.0",
+            "version": "v8.81.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/collect.git",
-                "reference": "7b5a80ad7bd0d13e6a8ce1934f04de3ba98393c0"
+                "reference": "2b629c5095c89f3e96488f4bde8ac11642465200"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/collect/zipball/7b5a80ad7bd0d13e6a8ce1934f04de3ba98393c0",
-                "reference": "7b5a80ad7bd0d13e6a8ce1934f04de3ba98393c0",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/2b629c5095c89f3e96488f4bde8ac11642465200",
+                "reference": "2b629c5095c89f3e96488f4bde8ac11642465200",
                 "shasum": ""
             },
             "require": {
@@ -411,9 +411,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/collect/issues",
-                "source": "https://github.com/tighten/collect/tree/v8.79.0"
+                "source": "https://github.com/tighten/collect/tree/v8.81.0"
             },
-            "time": "2022-01-12T17:08:58+00:00"
+            "time": "2022-01-25T22:55:34+00:00"
         }
     ],
     "packages-dev": [],
