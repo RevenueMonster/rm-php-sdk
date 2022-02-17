@@ -32,7 +32,7 @@
   "require": {
     "php": "^8.0",
     "nategood/httpful": "^0.3.2",
-    "tightenco/collect": "^8.34.0",
+    "tightenco/collect": "^9.0.2",
     "rakit/validation": "^1.4.0"
   },
   "autoload": {
