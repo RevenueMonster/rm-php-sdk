@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dd471d02a5f51e657eaa34f6ecb536f",
+    "content-hash": "1017fd9aafc4895367a95cbbc7c33a81",
     "packages": [
         {
             "name": "nategood/httpful",
@@ -140,12 +140,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -363,20 +363,20 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v8.83.0",
+            "version": "v9.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/collect.git",
-                "reference": "f8053a9e26ffe0db24db02ef346c40bca920f8f8"
+                "reference": "e1d08232533c981fe7bfa39645f2ef6089da11d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/collect/zipball/f8053a9e26ffe0db24db02ef346c40bca920f8f8",
-                "reference": "f8053a9e26ffe0db24db02ef346c40bca920f8f8",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/e1d08232533c981fe7bfa39645f2ef6089da11d8",
+                "reference": "e1d08232533c981fe7bfa39645f2ef6089da11d8",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3|^8.0",
+                "php": "^8.0",
                 "symfony/var-dumper": "^3.4 || ^4.0 || ^5.0 || ^6.0"
             },
             "require-dev": {
@@ -411,9 +411,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/collect/issues",
-                "source": "https://github.com/tighten/collect/tree/v8.83.0"
+                "source": "https://github.com/tighten/collect/tree/v9.2.0"
             },
-            "time": "2022-02-10T23:00:41+00:00"
+            "time": "2022-02-23T21:34:58+00:00"
         }
     ],
     "packages-dev": [],
