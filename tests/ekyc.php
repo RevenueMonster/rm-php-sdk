@@ -3,8 +3,10 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use RevenueMonster\SDK\RevenueMonster;
-use RevenueMonster\SDK\Request\PredictMykad;
-use RevenueMonster\SDK\Request\VerifyFace;
+use RevenueMonster\SDK\Request\EkycMyKad;
+use RevenueMonster\SDK\Request\EkycFaceCompare;
+use RevenueMonster\SDK\Request\EkycGetResult;
+use RevenueMonster\SDK\Request\EkycGetMyKadResult;
 use RevenueMonster\SDK\Exceptions\ApiException;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 
@@ -18,19 +20,40 @@ $rm = new RevenueMonster([
 ]);
 
 try {
+  // ekyc - send in base64 mykad image
   echo '<pre>';
-  $mykad = new PredictMykad();
-  $mykad->base64Image = file_get_contents(__DIR__.'/mykad.txt');
-  $response = $rm->ekyc->call($mykad);
+  $request = new EkycMyKad();
+  $request->notifyUrl = "https://client-server/notify-webhook";
+  $request->base64Image = file_get_contents(__DIR__.'/mykad.txt');
+  $response = $rm->ekyc->call($request);
   var_dump($response);
   echo '</pre>';
 
+  // ekyc - face compare of 2 different faces
   echo '<pre>';
   $image = file_get_contents(__DIR__.'/face.txt');
-  $face = new VerifyFace();
-  $face->base64Image1 = $image;
-  $face->base64Image2 = $image;
-  $response = $rm->ekyc->call($face);
+  $request = new EkycFaceCompare();
+  $request->base64Image1 = $image;
+  $request->base64Image2 = $image;
+  $response = $rm->ekyc->call($request);
+  var_dump($response);
+  echo '</pre>';
+  
+  // ekyc - get complete ekyc result after liveness check
+  echo '<pre>';
+  $request = new EkycGetResult();
+  $request->id = "62201d52239b18052126e289";
+  $ekycResult = $rm->ekyc->call($request);
+  var_dump($ekycResult);
+
+  echo $ekycResult->mykadRequestId;
+  echo '</pre>';
+  
+  // ekyc - get mykad specific result
+  echo '<pre>';
+  $request = new EkycGetMyKadResult();
+  $request->id = $ekycResult->mykadRequestId;
+  $response = $rm->ekyc->call($request);
   var_dump($response);
   echo '</pre>';
 
