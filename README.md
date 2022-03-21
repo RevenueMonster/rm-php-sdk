@@ -223,19 +223,13 @@ Example - data:image/jpeg;base64,/9j/4AAQSkZJRgABAQE......
 Data Portion - /9j/4AAQSkZJRgABAQE......
 ```
 
-### Mykad Prediction
+### eKYC MyKad
 
-This method will detect and validate all the discernible MyKad in a picture and return data such as:
-
-1. Name
-2. Gender
-3. MyKad Number
-4. Addresses, postcode, city, state
-5. Is muslim or not muslim
+This method will accept a mykad image and return a request ID to be used in the liveness SDK.
 
 ```php
 try {
-  $mykad = new PredictMykad();
+  $mykad = new EkycMyKad();
   $mykad->base64Image = file_get_contents(__DIR__.'/mykad.txt');
   $response = $rm->ekyc->call($mykad);
 } catch(Exception $e) {
@@ -251,9 +245,37 @@ This method will recognize and verify if the human face present on 2 images are 
 try {
   $image = file_get_contents(__DIR__.'/face.txt');
   $face = new VerifyFace();
-  $face->base64Image1 = $image;
-  $face->base64Image2 = $image;
+  $face->base64Image1 = $image;    // image 1
+  $face->base64Image2 = $image;    // image 2
   $response = $rm->ekyc->call($face);
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+```
+
+### Get eKYC Result
+
+This method accepts the `ekycId` parameter returned from the Liveness SDK. It will return the complete eKYC result.
+
+```php
+try {
+  $request = new EkycGetResult();
+  $request->id = "62201d52239b18052126e289";
+  $ekycResult = $rm->ekyc->call($request);
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+```
+
+### Get MyKad Result
+
+This method accepts the `id` parameter returned from the `EkycMyKad` method, or `mykadRequestId` parameter from the `EkycGetResult` method. It will return the complete data recognized from the MyKad.
+
+```php
+try {
+  $request = new EkycGetMyKadResult();
+  $request->id = $ekycResult->mykadRequestId;
+  $response = $rm->ekyc->call($request);
 } catch(Exception $e) {
   echo $e->getMessage();
 }

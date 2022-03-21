@@ -8,7 +8,7 @@ use JsonSerializable;
 use Rakit\Validation\Validator;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 
-class VerifyFace implements JsonSerializable
+class EkycFaceCompare implements JsonSerializable
 {
     public $base64Image1 = '';
     public $base64Image2 = '';

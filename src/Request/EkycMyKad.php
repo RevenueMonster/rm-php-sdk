@@ -8,13 +8,15 @@ use JsonSerializable;
 use Rakit\Validation\Validator;
 use RevenueMonster\SDK\Exceptions\ValidationException;
 
-class PredictMykad implements JsonSerializable
+class EkycMyKad implements JsonSerializable
 {
+    public $notifyUrl = '';
     public $base64Image = '';
 
     public function __construct(array $arguments = [])
     {
         $request = new stdClass;
+        $request->notifyUrl = $this->notifyUrl;
         $request->base64Image = $this->base64Image;
         $this->request = $request;
     }
@@ -22,14 +24,16 @@ class PredictMykad implements JsonSerializable
     public function jsonSerialize()
     {
         $data = [
-            'function' => 'mykad',
+            'function' => 'id-mykad',
             'request' => [
+                "notify_url" => $this->notifyUrl,
                 "query_image_content" => $this->base64Image,
             ],
         ];
 
         $validator = new Validator;
         $validation = $validator->make($data, [
+            'request.notify_url' => 'required',
             'request.query_image_content' => 'required',
         ]);
 
