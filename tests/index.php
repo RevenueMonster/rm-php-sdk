@@ -9,6 +9,9 @@ use RevenueMonster\SDK\Exceptions\ValidationException;
 use RevenueMonster\SDK\Request\QRPay;
 use RevenueMonster\SDK\Request\QuickPay;
 use RevenueMonster\SDK\Request\WebPayment;
+use RevenueMonster\SDK\Request\TokenizedCustomer;
+use RevenueMonster\SDK\Request\RecurringCustomer;
+use RevenueMonster\SDK\Request\CustomerOrderAmount;
 
 echo '<div style="width: 100%; word-break: break-all;">';
 echo round(microtime(true) * 1000).'<br/>';
