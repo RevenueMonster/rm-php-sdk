@@ -44,6 +44,7 @@ class RevenueMonster
         'user', Modules\UserModule::class,
         'payment' => Modules\PaymentModule::class,
         'ekyc' => Modules\EkycModule::class,
+        'tokenized' => Modules\TokenizedCustomerModule::class,
     ];
 
     public function __construct(array $arguments = [])

@@ -16,7 +16,7 @@ class Module
         $this->rm = $rm;
     }
 
-    public function getOpenApiUrl(string $version = '1.0', string $url = '', string $usage = 'api')
+    public function getOpenApiUrl(string $version = '1.0', string $url, string $usage = 'api')
     {
         return $this->rm->getOpenApiUrl($version, $url, $usage);
     }
@@ -31,7 +31,7 @@ class Module
             $data = '';
             if (!empty($payload)) {
                 array_ksort($payload);
-                $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_TAG));
+                $data = base64_encode(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_APOS));
             }
             array_push($arr, "data=$data");
         }
@@ -45,9 +45,8 @@ class Module
         $signature = '';
         // compute signature
         openssl_sign(join("&", $arr), $signature, $res, OPENSSL_ALGO_SHA256);
-
         // free the key from memory
-        unset($res);
+        openssl_free_key($res);
         $signature = base64_encode($signature);
         return $signature;
     }
@@ -67,6 +66,9 @@ class Module
             case 'delete':
                 $request = Request::delete($url);
                 break;
+            case 'put':
+                $request = Request::put($url);
+                break;
             default:
                 $request = Request::get($url);
                 break;
@@ -81,6 +83,8 @@ class Module
             'X-Nonce-Str' => $nonceStr,
             'X-Timestamp' => $timestamp,
         ];
+print_r($header);
+// return;
 
         $request = $request->sendsJson()
             ->expectsJson()
@@ -97,6 +101,11 @@ class Module
     protected function post(string $url, $payload = null)
     {
         return $this->callApi('post', $url, $payload);
+    }
+
+    protected function put(string $url)
+    {
+        return $this->callApi('put', $url);
     }
 
     /**

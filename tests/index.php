@@ -22,6 +22,115 @@ $rm = new RevenueMonster([
 ]);
 
 
+
+
+// create Recurring Customer
+try {
+  $tp = new RecurringCustomer;
+  $tp->storeId = "1586355873447984793";
+  $tp->email = 'ipsum'.date('his').'@testing.com';
+  $tp->name = 'Ipsum';
+  $tp->currency = 'MYR';
+  $tp->amount = 100;
+  $tp->countryCode = '60';
+  $tp->phoneNumber = '01312345678';
+  $tp->productName = 'Testing';
+  $tp->productDescription = 'Testing 2';
+  $tp->redirectUrl = 'https://google.com';
+  $tp->notifyUrl = 'https://google.com';
+  $tp->recurringInterval = 'WEEKLY';
+  $tp->recurringTarget = '1';
+  $tp->recurringRepetition = 1;
+
+  $response = $rm->tokenized->createRecurringCustomer($tp);
+  var_dump($response); // Customer object
+
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(ValidationException $e) {
+  var_dump($e->getMessage());
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// create Tokenized Customer
+try {
+  $tp = new TokenizedCustomer;
+  $tp->email = 'ipsum@testing.com';
+  $tp->name = 'Ipsum';
+  // $tp->currency = 'MYR';
+  // $tp->amount = 100;
+  $tp->countryCode = 'MY';
+  $tp->phoneNumber = '01012345678';
+  $tp->productName = 'Testing';
+  $tp->productDescription = 'Testing 2';
+  $tp->storeId = "1586355873447984793";
+  $tp->redirectUrl = 'https://google.com';
+  $tp->notifyUrl = 'https://google.com';
+
+  $response = $rm->tokenized->createTokenizedPayment($tp);
+  var_dump($response); // Customer object
+
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(ValidationException $e) {
+  var_dump($e->getMessage());
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Toggle customer status by Customer ID
+try {
+  $customerId = '1684129308191958988';
+  $response = $rm->tokenized->toggleCustomerStatusById($customerId);
+  var_dump($response);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Get Customer Orders by Customer ID
+try {
+  $customerId = '1684129308191958988';
+  $response = $rm->tokenized->getCustomerOrdersById($customerId);
+  var_dump($response);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// create Customer Order by Customer ID
+try {
+  $customerId = '1684129308191958988';
+  $tp = new CustomerOrderAmount;
+  $tp->currency = 'MYR';
+  $tp->amount = 100;
+
+  $response = $rm->tokenized->createCustomerOrderById($customerId, $tp);
+  var_dump($response); // Item object
+
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(ValidationException $e) {
+  var_dump($e->getMessage());
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+// Get Customer Tokens by Customer ID
+try {
+  $customerId = '1684129308191958988';
+  $response = $rm->tokenized->getCustomerTokensById($customerId);
+  var_dump($response);
+} catch(ApiException $e) {
+  echo "statusCode : {$e->getCode()}, errorCode : {$e->getErrorCode()}, errorMessage : {$e->getMessage()}";
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+
 try {
   $qrPay = new QRPay();
   $qrPay->currencyType = 'MYR';
