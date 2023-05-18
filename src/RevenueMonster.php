@@ -39,6 +39,7 @@ class RevenueMonster
     // private $tokenPath = '/storage/access_token.json';
 
     private $modules = [
+        'module' => Modules\Module::class,
         'merchant' => Modules\MerchantModule::class,
         'store' => Modules\StoreModule::class,
         'user', Modules\UserModule::class,
@@ -123,6 +124,11 @@ class RevenueMonster
     public function getPrivateKey()
     {
         return $this->privateKey;
+    }
+    
+    public function getPublicKey()
+    {
+        return $this->publicKey;
     }
 
     public function __get($name)

@@ -19,12 +19,26 @@ $rm = new RevenueMonster([
   'clientId' => '1553826822294112891',
   'clientSecret' => 'nbPqwJtxdiZBiSQkyWLOYPQEufOABAuv',
   'privateKey' => file_get_contents(__DIR__.'/private_key.pem'),
-  // 'publicKey' => file_get_contents(__DIR__.'/public_key.pem'),
+  'publicKey' => file_get_contents(__DIR__.'/public_key.pem'),
   'version' => 'stable',
   'isSandbox' => true,
 ]);
 
 
+// Verify Signature
+try {
+  $signature = 'AMDgYwP7kZQ03OP0dZolB9aKKU/zSE3mF7pSmuGSbclGDv2+2/83zZwiRUIj0apSzdn/zv02A8BAY9ubugfzhEAf5L4cOGIF2xPr6mUniODLAdDSImh8XFP8hflBMd8oZ1vo8RhouRwZWp2bomaQzdql12GawVhT9ItADbccaJ3yNfPm1cLfWG88KFctFn09VJqmXy0q71CYmh5/FjdsP8jEdfuN9YVPJj+vhEvkkXxI/PwVdRR0DCKidwCELK+A4NTnqe+RUARg/Ez3z/ChaktW6x5clTFn9LwA/V3QRlQSi2vWcfoBoSQWrSf1fd6ee29CkVFbiHMZShoke9w5wA==';
+  $method = 'post';
+  $url = 'https://sb-open.revenuemonster.my/v3/customer/1684129308191958988/order';
+  $nonceStr = 'xNNXvXgOfnLdWoPPaluemi5Y1Lz1MF2g';
+  $timestamp = '1684387287';
+  $base64Payload = 'eyJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJNWVIifQ==';
+
+  $response = $rm->module->verifySignature($signature, $method, $url, $nonceStr, $timestamp, $base64Payload);
+  echo $response;
+} catch(Exception $e) {
+  echo $e->getMessage();
+}
 
 
 // create Recurring Customer
