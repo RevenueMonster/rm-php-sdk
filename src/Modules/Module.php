@@ -51,6 +51,28 @@ class Module
         $signature = base64_encode($signature);
         return $signature;
     }
+    
+    public function verifySignature($signature, $method, $url, $nonceStr, $timestamp, $base64Payload = null)
+    {
+        $res = openssl_pkey_get_public($this->rm->getPublicKey());
+        $signType = 'sha256';
+
+        $arr = array();
+        if ($base64Payload) {
+            array_push($arr, "data=$base64Payload");
+        }
+        array_push($arr, "method=$method");
+        array_push($arr, "nonceStr=$nonceStr");
+        array_push($arr, "requestUrl=$url");
+        array_push($arr, "signType=$signType");
+        array_push($arr, "timestamp=$timestamp");
+
+
+        $result = openssl_verify(join("&", $arr), base64_decode($signature), $res, OPENSSL_ALGO_SHA256);
+        openssl_free_key($res);
+
+        return $result;
+    }
 
     protected function callApi(string $method, $url, $payload = null)
     {
@@ -66,6 +88,9 @@ class Module
                 break;
             case 'delete':
                 $request = Request::delete($url);
+                break;
+            case 'put':
+                $request = Request::put($url);
                 break;
             default:
                 $request = Request::get($url);
@@ -97,6 +122,11 @@ class Module
     protected function post(string $url, $payload = null)
     {
         return $this->callApi('post', $url, $payload);
+    }
+
+    protected function put(string $url)
+    {
+        return $this->callApi('put', $url);
     }
 
     /**
