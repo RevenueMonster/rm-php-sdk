@@ -21,6 +21,9 @@ class TokenizedCustomer implements JsonSerializable
     public $redirectUrl = '';
     public $notifyUrl = '';
 
+    // Add the #[\ReturnTypeWillChange] attribute to suppress warnings supporting PHP versions before PHP 8.1
+    // or the proper return type in PHP 8.1+ would be eg. jsonSerialize(): mixed
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $data = [

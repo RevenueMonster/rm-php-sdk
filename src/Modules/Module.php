@@ -6,6 +6,8 @@ use Httpful\Request;
 use Httpful\Response;
 use RevenueMonster\SDK\RevenueMonster;
 use RevenueMonster\SDK\Exceptions\ApiException;
+use Illuminate\Support\Collection;
+
 
 class Module
 {
@@ -67,9 +69,12 @@ class Module
         array_push($arr, "signType=$signType");
         array_push($arr, "timestamp=$timestamp");
 
-
+       
         $result = openssl_verify(join("&", $arr), base64_decode($signature), $res, OPENSSL_ALGO_SHA256);
-        openssl_free_key($res);
+        
+        if (PHP_VERSION_ID < 80000) {
+            openssl_free_key($res); // Free key explicitly in older PHP versions
+        }
 
         return $result;
     }
@@ -132,8 +137,8 @@ class Module
     /**
      * magic function to return response
      * 
-     * @return stdClass|Tightenco\Collect\Support\Collection
-     *
+     * update @return stdClass|Tightenco\Collect\Support\Collection
+     * to @return stdClass|Illuminate\Support\Collection
      * @throws ApiException
      */
     protected function mapResponse(Response $response)
@@ -146,7 +151,7 @@ class Module
         } else if (property_exists($body, 'item')) {
             return $body->item;
         } else if (property_exists($body, 'items')) {
-            return collect($body->items);
+            return new Collection($body->items);
         }
 
         throw new ApiException($response->code, ApiException::$UNKNOWN_ERROR, 'unexpected error');

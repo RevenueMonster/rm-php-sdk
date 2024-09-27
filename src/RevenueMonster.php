@@ -131,15 +131,19 @@ class RevenueMonster
         return $this->publicKey;
     }
 
+    private $instances = []; // Array to store dynamically created objects
+
     public function __get($name)
     {
         if (!array_key_exists($name, $this->modules)) {
             throw new Exception("invalid property name : $name");
         }
 
-        $obj = $this->modules[$name];
-        $obj = new $obj($this);
-        $this->{$name} = $obj;
-        return $obj;
+        if (!isset($this->instances[$name])) {
+            $obj = $this->modules[$name];
+            $this->instances[$name] = new $obj($this);
+        }
+
+        return $this->instances[$name];
     }
 }

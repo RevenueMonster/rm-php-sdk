@@ -96,7 +96,8 @@ class PaymentModule extends Module
     /**
      * List transactions
      * @param string $transactionId 
-     * @return Tightenco\Collect\Support\Collection
+     * update @return stdClass|Tightenco\Collect\Support\Collection
+     * to @return stdClass|Illuminate\Support\Collection
      * @throws ApiException
      */
     public function paginate(int $limit = 100)
